@@ -20,8 +20,8 @@ var AppComponent = (function () {
     }
     AppComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: "\n\t\t<h1>{{title}}</h1>\n\t\t<nav>\n\t\t\t<a [routerLink]=\"['Dashboard']\">Dashboard</a>\n\t\t\t<a [routerLink]=\"['Orders']\">Orders</a>\n\t\t<nav>\n\t\t<router-outlet>\n\t",
+            selector: 's-pizza-app',
+            template: "\n\t\t<h1>{{title}}</h1>\n\t\t<nav>\n\t\t\t<a [routerLink]=\"['CurrentOrder']\">Current Order</a>\n\t\t\t<a [routerLink]=\"['Dashboard']\">Dashboard</a>\n\t\t\t<a [routerLink]=\"['Orders']\">Orders</a>\t\t\t\n\t\t<nav>\n\t\t<router-outlet>\n\t",
             directives: [router_deprecated_1.ROUTER_DIRECTIVES],
             providers: [
                 router_deprecated_1.ROUTER_PROVIDERS,
@@ -31,15 +31,20 @@ var AppComponent = (function () {
         }),
         router_deprecated_1.RouteConfig([
             {
-                path: '/orders',
-                name: 'Orders',
-                component: orders_component_1.OrdersComponent // the component that the router should create when navigating to this route 
+                path: '/detail/',
+                name: 'CurrentOrder',
+                component: order_detail_component_1.OrderDetailComponent,
+                useAsDefault: true // this is the default route (for '/')
             },
             {
                 path: '/dashboard',
                 name: 'Dashboard',
-                component: dashboard_component_1.DashboardComponent,
-                useAsDefault: true // this is the default route (for '/')
+                component: dashboard_component_1.DashboardComponent
+            },
+            {
+                path: '/orders',
+                name: 'Orders',
+                component: orders_component_1.OrdersComponent // the component that the router should create when navigating to this route 
             },
             {
                 path: '/detail/:id',

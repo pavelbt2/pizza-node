@@ -28,7 +28,13 @@ export class OrderDetailComponent implements OnInit {
 			let id = +this.routeParams.get('id'); // the "+" is to convert the id from string to a number
 			this.navigated = true;
 			this.orderService.getOrder(id).then(order => this.order = order);
-		} else {
+			return;
+		}
+		
+		// present current order
+		this.orderService.getCurrentOrder().then(order => this.order = order);
+		
+		if (this.order == null) {
 			// init to new Order if no order id selected - to have an object to edit in any case
 		    this.navigated = false;
 			this.order = new Order();

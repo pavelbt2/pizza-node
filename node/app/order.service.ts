@@ -6,24 +6,34 @@ import { Order } from './order';
 @Injectable()
 export class OrderService {
 
-	private ordersGetUrl = 'http://localhost:8080/Pizza/order/fetchall';  // URL to web api TODO
-	private ordersCreateUrl = 'http://localhost:8080/Pizza/order/create';
-	private ordersUpdateUrl = 'http://localhost:8080/Pizza/order/update';
+	private allOrdersGetUrl = 'http://localhost:8080/Pizza/order/fetchall';
+	private orderGetUrl = 'http://localhost:8080/Pizza/order/get';  // URL to web api TODO	
+	private orderCreateUrl = 'http://localhost:8080/Pizza/order/create';
+	private orderUpdateUrl = 'http://localhost:8080/Pizza/order/update';
 
 	constructor(private http: Http) { }
 
 	getOrders(): Promise<Order[]> {
-		return this.http.get(this.ordersGetUrl) // returns Observable
+		return this.http.get(this.allOrdersGetUrl) // returns Observable
 			.toPromise()
-			.then(response => response.json()) // TODO match the web API
-							// TODO need .data???
+			.then(response => response.json())
 			.catch(this.handleError);		
 	}
 	
-	// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-	getOrder(id: number) { // TODO is it OK to go to the server each time??? + if so - do only for specific order!!
-		return this.getOrders()
-               .then(orders => orders.filter(order => order.id === id)[0]);
+	getOrder(id: number) : Promise<Order> { // TODO is it OK to go to the server each time?
+		let url = this.orderGetUrl;
+		if (id != null) {
+			let url = `${this.orderGetUrl}/${id}`;	
+		}
+		
+		return this.http.get(url) // returns Observable
+			.toPromise()
+			.then(response => response.json())
+			.catch(this.handleError);	
+	}
+	
+	getCurrentOrder() {
+		return this.getOrder(null);	
 	}
 
 	// Add or Update an order
@@ -40,7 +50,7 @@ export class OrderService {
 			'Content-Type': 'application/json'});
 
 		return this.http
-             .post(this.ordersCreateUrl, JSON.stringify(order), {headers: headers})
+             .post(this.orderCreateUrl, JSON.stringify(order), {headers: headers})
              .toPromise()
              .then(res => res.json())
              .catch(this.handleError);
@@ -51,7 +61,7 @@ export class OrderService {
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
-		let url = `${this.ordersUpdateUrl}/${order.id}`;
+		let url = `${this.orderUpdateUrl}/${order.id}`;
 
 		return this.http
              .post(url, JSON.stringify(order), {headers: headers})

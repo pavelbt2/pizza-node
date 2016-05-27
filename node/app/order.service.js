@@ -14,20 +14,29 @@ require('rxjs/add/operator/toPromise'); // import toPromise() for Observable
 var OrderService = (function () {
     function OrderService(http) {
         this.http = http;
-        this.ordersGetUrl = 'http://localhost:8080/Pizza/order/fetchall'; // URL to web api TODO
-        this.ordersCreateUrl = 'http://localhost:8080/Pizza/order/create';
-        this.ordersUpdateUrl = 'http://localhost:8080/Pizza/order/update';
+        this.allOrdersGetUrl = 'http://localhost:8080/Pizza/order/fetchall';
+        this.orderGetUrl = 'http://localhost:8080/Pizza/order/get'; // URL to web api TODO	
+        this.orderCreateUrl = 'http://localhost:8080/Pizza/order/create';
+        this.orderUpdateUrl = 'http://localhost:8080/Pizza/order/update';
     }
     OrderService.prototype.getOrders = function () {
-        return this.http.get(this.ordersGetUrl) // returns Observable
+        return this.http.get(this.allOrdersGetUrl) // returns Observable
             .toPromise()
-            .then(function (response) { return response.json(); }) // TODO match the web API
+            .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
     OrderService.prototype.getOrder = function (id) {
-        return this.getOrders()
-            .then(function (orders) { return orders.filter(function (order) { return order.id === id; })[0]; });
+        var url = this.orderGetUrl;
+        if (id != null) {
+            var url_1 = this.orderGetUrl + "/" + id;
+        }
+        return this.http.get(url) // returns Observable
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    OrderService.prototype.getCurrentOrder = function () {
+        return this.getOrder(null);
     };
     // Add or Update an order
     OrderService.prototype.saveOrder = function (order) {
@@ -41,7 +50,7 @@ var OrderService = (function () {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json' });
         return this.http
-            .post(this.ordersCreateUrl, JSON.stringify(order), { headers: headers })
+            .post(this.orderCreateUrl, JSON.stringify(order), { headers: headers })
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(this.handleError);
@@ -50,7 +59,7 @@ var OrderService = (function () {
     OrderService.prototype.updateOrder = function (order) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        var url = this.ordersUpdateUrl + "/" + order.id;
+        var url = this.orderUpdateUrl + "/" + order.id;
         return this.http
             .post(url, JSON.stringify(order), { headers: headers })
             .toPromise()

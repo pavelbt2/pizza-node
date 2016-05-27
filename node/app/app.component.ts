@@ -7,12 +7,13 @@ import { OrderDetailComponent } from './order-detail.component';
 
 
 @Component({
-	selector: 'my-app',
+	selector: 's-pizza-app',
 	template: `
 		<h1>{{title}}</h1>
 		<nav>
+			<a [routerLink]="['CurrentOrder']">Current Order</a>
 			<a [routerLink]="['Dashboard']">Dashboard</a>
-			<a [routerLink]="['Orders']">Orders</a>
+			<a [routerLink]="['Orders']">Orders</a>			
 		<nav>
 		<router-outlet>
 	`,
@@ -26,15 +27,20 @@ import { OrderDetailComponent } from './order-detail.component';
 
 @RouteConfig([
 	{
-		path: '/orders', //the router matches this route's path to the URL in the browser address bar
-		name: 'Orders', // the official name of the route; it must begin with a capital letter to avoid confusion with the path
-		component: OrdersComponent // the component that the router should create when navigating to this route 
+		path: '/detail/',
+		name: 'CurrentOrder',
+		component: OrderDetailComponent,
+		useAsDefault: true // this is the default route (for '/')
 	},
 	{
 		path: '/dashboard',
 		name: 'Dashboard',
-		component: DashboardComponent,
-		useAsDefault: true // this is the default route (for '/')
+		component: DashboardComponent
+	},	
+	{
+		path: '/orders', //the router matches this route's path to the URL in the browser address bar
+		name: 'Orders', // the official name of the route; it must begin with a capital letter to avoid confusion with the path
+		component: OrdersComponent // the component that the router should create when navigating to this route 
 	},
 	{
 		path: '/detail/:id',
