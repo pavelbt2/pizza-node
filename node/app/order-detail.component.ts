@@ -34,6 +34,7 @@ export class OrderDetailComponent implements OnInit {
 		// present current order
 		this.orderService.getCurrentOrder().then(order => this.order = order);
 		
+		// shouldn't get here!!
 		if (this.order == null) {
 			// init to new Order if no order id selected - to have an object to edit in any case
 		    this.navigated = false;

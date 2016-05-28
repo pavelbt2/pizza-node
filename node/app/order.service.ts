@@ -21,9 +21,10 @@ export class OrderService {
 	}
 	
 	getOrder(id: number) : Promise<Order> { // TODO is it OK to go to the server each time?
+		console.info("getOrder(): id=" + id);
 		let url = this.orderGetUrl;
 		if (id != null) {
-			let url = `${this.orderGetUrl}/${id}`;	
+			url = `${this.orderGetUrl}/${id}`;	
 		}
 		
 		return this.http.get(url) // returns Observable

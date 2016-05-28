@@ -29,6 +29,7 @@ var OrderDetailComponent = (function () {
         }
         // present current order
         this.orderService.getCurrentOrder().then(function (order) { return _this.order = order; });
+        // shouldn't get here!!
         if (this.order == null) {
             // init to new Order if no order id selected - to have an object to edit in any case
             this.navigated = false;

@@ -26,9 +26,10 @@ var OrderService = (function () {
             .catch(this.handleError);
     };
     OrderService.prototype.getOrder = function (id) {
+        console.info("getOrder(): id=" + id);
         var url = this.orderGetUrl;
         if (id != null) {
-            var url_1 = this.orderGetUrl + "/" + id;
+            url = this.orderGetUrl + "/" + id;
         }
         return this.http.get(url) // returns Observable
             .toPromise()
