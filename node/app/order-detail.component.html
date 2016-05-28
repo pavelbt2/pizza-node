@@ -6,6 +6,16 @@
 		<label>responsible: </label>
 		<input [(ngModel)]="order.responsible" placeholder="responsible">
 	</div>
+
+	<h2>Ordered items:</h2>
+	<ul class="orders">
+		<li *ngFor="let orderedItem of order.items" >
+			<span class="badge">{{orderedItem.item}}</span>
+			{{orderedItem.user}} 
+			{{orderedItem.count}}
+		</li>			
+	</ul>
+	
 	<button (click)="goBack()">Back</button>
 	<button (click)="save()">Save</button>
 </div>	
