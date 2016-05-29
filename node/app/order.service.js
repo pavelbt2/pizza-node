@@ -24,18 +24,19 @@ var OrderService = (function () {
         this.itemList = []; // keep to fetch only once
         //put logic here since ngOnInit() doesn't work for Injectable
         console.info("order service c'tor");
-        this.getItemsFromServer()
+        this.http.get(this.itemListUrl) // returns Observable
+            .toPromise()
+            .then(function (response) { return response.json(); })
             .then(function (items) {
             _this.itemList = items;
             console.info("kuku " + _this.itemList);
-        });
+        })
+            .catch(this.handleError);
         console.info("kuku2 " + this.itemList);
     }
-    OrderService.prototype.getItemsFromServer = function () {
-        return this.http.get(this.itemListUrl) // returns Observable
-            .toPromise()
-            .then(function (response) { return response.json(); })
-            .catch(this.handleError);
+    OrderService.prototype.getItemList = function () {
+        console.info("getItemList(). " + this.itemList);
+        return this.itemList;
     };
     OrderService.prototype.getOrders = function () {
         return this.http.get(this.allOrdersGetUrl) // returns Observable
@@ -84,10 +85,6 @@ var OrderService = (function () {
             .toPromise()
             .then(function () { return order; })
             .catch(this.handleError);
-    };
-    OrderService.prototype.getItemList = function () {
-        console.info("getItemList(). " + this.itemList);
-        return this.itemList;
     };
     OrderService.prototype.handleError = function (error) {
         console.error('An error occurred :(((', error);

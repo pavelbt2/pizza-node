@@ -21,23 +21,27 @@ export class OrderService {
 		//put logic here since ngOnInit() doesn't work for Injectable
 		console.info("order service c'tor");
 		
-		this.getItemsFromServer()
-		.then(items => {
-			this.itemList = items;
-			console.info("kuku " +  this.itemList);
-			}	
-		);
+		this.http.get(this.itemListUrl) // returns Observable
+			.toPromise()
+			.then(response => response.json())
+			.then(items => {
+				this.itemList = items;
+				console.info("kuku " +  this.itemList);
+				}	
+			)
+			.catch(this.handleError);
 		
 		console.info("kuku2 " +  this.itemList);
 		
 	}
 	
-	private getItemsFromServer(): Promise<Item[]> {
-		return this.http.get(this.itemListUrl) // returns Observable
-			.toPromise()
-			.then(response => response.json())
-			.catch(this.handleError);		
-	} 
+		
+	public getItemList() : Item[] {	
+		console.info("getItemList(). " + this.itemList);
+
+		return this.itemList;
+	}
+	
 
 	getOrders(): Promise<Order[]> {
 		return this.http.get(this.allOrdersGetUrl) // returns Observable
@@ -97,12 +101,7 @@ export class OrderService {
              .catch(this.handleError);
 	}
 	
-	
-	public getItemList() : Item[] {	
-		console.info("getItemList(). " + this.itemList);
 
-		return this.itemList;
-	}
 		
 	private handleError(error: any) {
 		console.error('An error occurred :(((', error);
