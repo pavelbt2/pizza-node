@@ -3,8 +3,19 @@
 
 	<ul class="items">
 		<li *ngFor="let item of itemList" >
-			<span class="badge">{{item.pretty}}</span>
+			<span class="badge">{{item.pretty}} - {{item.price}}</span>
+            <input [(ngModel)]="item.count" placeholder="count">
 		</li>			
 	</ul>
     
+    <div>
+        <h1>User:</h1>
+        <input [(ngModel)]="user" placeholder="user">
+    </div>
+    
+    <br>
+    <br>
+    <button (click)="goBack()">Back</button>
+    <button (click)="addItems()">Place Order</button>
+
 </div>

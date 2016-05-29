@@ -26,6 +26,11 @@ var ItemSelectionComponent = (function () {
             .then(function (itemList) { return _this.itemList = itemList; });
         return;
     };
+    ItemSelectionComponent.prototype.addItems = function () {
+    };
+    ItemSelectionComponent.prototype.goBack = function () {
+        window.history.back();
+    };
     ItemSelectionComponent = __decorate([
         core_1.Component({
             selector: 's-item-selection',

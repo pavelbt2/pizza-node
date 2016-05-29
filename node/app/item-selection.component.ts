@@ -12,9 +12,9 @@ import { Item } from './item';
 
 export class ItemSelectionComponent implements OnInit {
 
-    orderId : number;
-    
+    orderId : number;    
     itemList : Item[] = [];
+    user : string;
 
 	constructor(private router: Router, private orderService: OrderService, private routeParams: RouteParams) {
 	}
@@ -29,4 +29,12 @@ export class ItemSelectionComponent implements OnInit {
         
 		return;        
     }
+    
+    addItems() {
+        
+    }
+    
+    goBack() {
+		window.history.back();
+	}
 }

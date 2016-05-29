@@ -1,3 +1,6 @@
 export class Item {
-	pretty: string;
+	pretty : string;
+	price : number;
+	count : number; // placeholder for adding an order
+			// not!! for status of current order
 }
