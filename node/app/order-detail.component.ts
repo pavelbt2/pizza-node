@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { RouteParams } from '@angular/router-deprecated';
+import { Router, RouteParams } from '@angular/router-deprecated';
 import { Order } from './order';
 import { OrderService } from './order.service';
 
@@ -20,7 +20,7 @@ export class OrderDetailComponent implements OnInit {
 	error: any;
 	navigated = false; // true if navigated here
 	
-	constructor(private orderService: OrderService, private routeParams: RouteParams) {
+	constructor(private router: Router, private orderService: OrderService, private routeParams: RouteParams) {
 	}
 
 	ngOnInit() {
@@ -51,6 +51,10 @@ export class OrderDetailComponent implements OnInit {
 				this.goBack(order);
 			})
 			.catch(error => this.error = error); // TODO: Display error message
+	}
+	
+	addItem() {
+		this.router.navigate(['ItemSelection', { orderId: this.order.id }])
 	}
 	
 	goBack(savedOrder: Order = null) {

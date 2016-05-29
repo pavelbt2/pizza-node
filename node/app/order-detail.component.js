@@ -13,7 +13,8 @@ var router_deprecated_1 = require('@angular/router-deprecated');
 var order_1 = require('./order');
 var order_service_1 = require('./order.service');
 var OrderDetailComponent = (function () {
-    function OrderDetailComponent(orderService, routeParams) {
+    function OrderDetailComponent(router, orderService, routeParams) {
+        this.router = router;
         this.orderService = orderService;
         this.routeParams = routeParams;
         this.close = new core_1.EventEmitter();
@@ -47,6 +48,9 @@ var OrderDetailComponent = (function () {
         })
             .catch(function (error) { return _this.error = error; }); // TODO: Display error message
     };
+    OrderDetailComponent.prototype.addItem = function () {
+        this.router.navigate(['ItemSelection', { orderId: this.order.id }]);
+    };
     OrderDetailComponent.prototype.goBack = function (savedOrder) {
         if (savedOrder === void 0) { savedOrder = null; }
         this.close.emit(savedOrder);
@@ -68,7 +72,7 @@ var OrderDetailComponent = (function () {
             templateUrl: 'app/order-detail.component.html',
             styleUrls: ['app/order-detail.component.css']
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_deprecated_1.RouteParams])
+        __metadata('design:paramtypes', [router_deprecated_1.Router, order_service_1.OrderService, router_deprecated_1.RouteParams])
     ], OrderDetailComponent);
     return OrderDetailComponent;
 }());
