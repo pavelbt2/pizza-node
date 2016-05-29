@@ -19,8 +19,11 @@ var ItemSelectionComponent = (function () {
         this.itemList = [];
     }
     ItemSelectionComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.orderId = +this.routeParams.get('orderId');
-        this.itemList = this.orderService.getItemList();
+        //this.itemList = this.orderService.getItemList();
+        this.orderService.getItemList()
+            .then(function (itemList) { return _this.itemList = itemList; });
         return;
     };
     ItemSelectionComponent = __decorate([

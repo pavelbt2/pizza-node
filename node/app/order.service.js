@@ -14,28 +14,21 @@ require('rxjs/add/operator/toPromise'); // import toPromise() for Observable
 require('rxjs/add/operator/map'); // TODO - OK?? copied from stackoverflow
 var OrderService = (function () {
     function OrderService(http) {
-        var _this = this;
         this.http = http;
         this.allOrdersGetUrl = 'http://localhost:8080/Pizza/order/fetchall';
         this.orderGetUrl = 'http://localhost:8080/Pizza/order/get'; // URL to web api TODO	
         this.orderCreateUrl = 'http://localhost:8080/Pizza/order/create';
         this.orderUpdateUrl = 'http://localhost:8080/Pizza/order/update';
         this.itemListUrl = 'http://localhost:8080/Pizza/item/fetchall';
-        this.itemList = []; // keep to fetch only once
-        //put logic here since ngOnInit() doesn't work for Injectable
-        console.info("order service c'tor");
-        this.http.get(this.itemListUrl) // returns Observable
-            .toPromise()
-            .then(function (response) { return response.json(); })
-            .then(function (items) {
-            _this.itemList = items;
-            console.info("kuku " + _this.itemList);
-        })
-            .catch(this.handleError);
-        console.info("kuku2 " + this.itemList);
     }
     OrderService.prototype.getItemList = function () {
-        console.info("getItemList(). " + this.itemList);
+        if (this.itemList == null) {
+            console.info("getItemList() - fething from server");
+            this.itemList = this.http.get(this.itemListUrl) // returns Observable
+                .toPromise()
+                .then(function (response) { return response.json(); })
+                .catch(this.handleError);
+        }
         return this.itemList;
     };
     OrderService.prototype.getOrders = function () {

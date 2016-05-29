@@ -14,30 +14,20 @@ export class OrderService {
 	private orderUpdateUrl = 'http://localhost:8080/Pizza/order/update';
 	private itemListUrl = 'http://localhost:8080/Pizza/item/fetchall';
 
-	private itemList : Item[] = []; // keep to fetch only once
+	private itemList : Promise<Item[]>; // keep to fetch only once
+	
 
 	constructor(private http: Http) {
+	}	
 		
-		//put logic here since ngOnInit() doesn't work for Injectable
-		console.info("order service c'tor");
-		
-		this.http.get(this.itemListUrl) // returns Observable
+	public getItemList() : Promise<Item[]> {	
+		if (this.itemList == null) {
+			console.info("getItemList() - fething from server");
+			this.itemList = this.http.get(this.itemListUrl) // returns Observable
 			.toPromise()
 			.then(response => response.json())
-			.then(items => {
-				this.itemList = items;
-				console.info("kuku " +  this.itemList);
-				}	
-			)
 			.catch(this.handleError);
-		
-		console.info("kuku2 " +  this.itemList);
-		
-	}
-	
-		
-	public getItemList() : Item[] {	
-		console.info("getItemList(). " + this.itemList);
+		}
 
 		return this.itemList;
 	}

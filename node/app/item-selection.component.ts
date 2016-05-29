@@ -22,7 +22,10 @@ export class ItemSelectionComponent implements OnInit {
     ngOnInit() {
 		this.orderId = +this.routeParams.get('orderId');
         
-        this.itemList = this.orderService.getItemList();
+        //this.itemList = this.orderService.getItemList();
+        this.orderService.getItemList()
+        .then(itemList => this.itemList = itemList);
+
         
 		return;        
     }
