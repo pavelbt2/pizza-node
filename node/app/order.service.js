@@ -11,14 +11,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/toPromise'); // import toPromise() for Observable
+require('rxjs/add/operator/map'); // TODO - OK?? copied from stackoverflow
 var OrderService = (function () {
     function OrderService(http) {
+        var _this = this;
         this.http = http;
         this.allOrdersGetUrl = 'http://localhost:8080/Pizza/order/fetchall';
         this.orderGetUrl = 'http://localhost:8080/Pizza/order/get'; // URL to web api TODO	
         this.orderCreateUrl = 'http://localhost:8080/Pizza/order/create';
         this.orderUpdateUrl = 'http://localhost:8080/Pizza/order/update';
+        this.itemListUrl = 'http://localhost:8080/Pizza/item/fetchall';
+        this.itemList = []; // keep to fetch only once
+        //put logic here since ngOnInit() doesn't work for Injectable
+        console.info("order service c'tor");
+        this.getItemsFromServer()
+            .then(function (items) {
+            _this.itemList = items;
+            console.info("kuku " + _this.itemList);
+        });
+        console.info("kuku2 " + this.itemList);
     }
+    OrderService.prototype.getItemsFromServer = function () {
+        return this.http.get(this.itemListUrl) // returns Observable
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
     OrderService.prototype.getOrders = function () {
         return this.http.get(this.allOrdersGetUrl) // returns Observable
             .toPromise()
@@ -66,6 +84,10 @@ var OrderService = (function () {
             .toPromise()
             .then(function () { return order; })
             .catch(this.handleError);
+    };
+    OrderService.prototype.getItemList = function () {
+        console.info("getItemList(). " + this.itemList);
+        return this.itemList;
     };
     OrderService.prototype.handleError = function (error) {
         console.error('An error occurred :(((', error);

@@ -1,3 +1,3 @@
 export class Item {
-	prettyName: string;
+	pretty: string;
 }
