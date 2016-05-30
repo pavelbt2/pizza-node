@@ -28,8 +28,8 @@ var ItemSelectionComponent = (function () {
     };
     ItemSelectionComponent.prototype.gotoItemDetail = function (item) {
         console.info("gotoItemDetail(). item = " + item.pretty);
-    };
-    ItemSelectionComponent.prototype.addItems = function () {
+        var link = ['ItemDetailsSelection', { orderId: this.orderId, itemId: item.id }];
+        this.router.navigate(link);
     };
     ItemSelectionComponent.prototype.goBack = function () {
         window.history.back();

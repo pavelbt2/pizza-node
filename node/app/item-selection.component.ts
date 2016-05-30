@@ -31,11 +31,9 @@ export class ItemSelectionComponent implements OnInit {
     
     gotoItemDetail(item : Item) {
         console.info("gotoItemDetail(). item = "+item.pretty);
-    }
-    
-    addItems() {
-        
-    }
+        let link = ['ItemDetailsSelection', { orderId : this.orderId, itemId: item.id }];
+		this.router.navigate(link);
+    }   
     
     goBack() {
 		window.history.back();

@@ -15,6 +15,7 @@ var orders_component_1 = require('./orders.component');
 var dashboard_component_1 = require('./dashboard.component');
 var order_detail_component_1 = require('./order-detail.component');
 var item_selection_component_1 = require('./item-selection.component');
+var item_details_selection_component_1 = require('./item-details-selection.component');
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'Pizza Order Center';
@@ -56,6 +57,11 @@ var AppComponent = (function () {
                 path: '/item-selection/:orderId',
                 name: 'ItemSelection',
                 component: item_selection_component_1.ItemSelectionComponent
+            },
+            {
+                path: '/item-selection/:orderId/:itemId',
+                name: 'ItemDetailsSelection',
+                component: item_details_selection_component_1.ItemDetailsSelectionComponent
             }
         ]), 
         __metadata('design:paramtypes', [])

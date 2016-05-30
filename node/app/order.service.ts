@@ -32,7 +32,6 @@ export class OrderService {
 		return this.itemList;
 	}
 	
-
 	getOrders(): Promise<Order[]> {
 		return this.http.get(this.allOrdersGetUrl) // returns Observable
 			.toPromise()

@@ -5,6 +5,7 @@ import { OrdersComponent } from './orders.component';
 import { DashboardComponent } from './dashboard.component';
 import { OrderDetailComponent } from './order-detail.component';
 import { ItemSelectionComponent } from './item-selection.component';
+import { ItemDetailsSelectionComponent } from './item-details-selection.component';
 
 
 @Component({
@@ -52,7 +53,12 @@ import { ItemSelectionComponent } from './item-selection.component';
 		path: '/item-selection/:orderId',
 		name: 'ItemSelection',
 		component: ItemSelectionComponent
-	}	
+	},
+	{
+		path: '/item-selection/:orderId/:itemId',
+		name: 'ItemDetailsSelection',
+		component: ItemDetailsSelectionComponent
+	}		
 	
 ])
 
