@@ -48,7 +48,7 @@ var OrderDetailComponent = (function () {
         })
             .catch(function (error) { return _this.error = error; }); // TODO: Display error message
     };
-    OrderDetailComponent.prototype.addItem = function () {
+    OrderDetailComponent.prototype.gotoAddItem = function () {
         this.router.navigate(['ItemSelection', { orderId: this.order.id }]);
     };
     OrderDetailComponent.prototype.goBack = function (savedOrder) {

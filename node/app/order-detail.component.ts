@@ -53,7 +53,7 @@ export class OrderDetailComponent implements OnInit {
 			.catch(error => this.error = error); // TODO: Display error message
 	}
 	
-	addItem() {
+	gotoAddItem() {
 		this.router.navigate(['ItemSelection', { orderId: this.order.id }])
 	}
 	
