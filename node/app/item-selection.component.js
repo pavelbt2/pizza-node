@@ -26,6 +26,9 @@ var ItemSelectionComponent = (function () {
             .then(function (itemList) { return _this.itemList = itemList; });
         return;
     };
+    ItemSelectionComponent.prototype.gotoItemDetail = function (item) {
+        console.info("gotoItemDetail(). item = " + item.pretty);
+    };
     ItemSelectionComponent.prototype.addItems = function () {
     };
     ItemSelectionComponent.prototype.goBack = function () {
@@ -35,6 +38,7 @@ var ItemSelectionComponent = (function () {
         core_1.Component({
             selector: 's-item-selection',
             templateUrl: 'app/item-selection.component.html',
+            styleUrls: ['app/item-selection.component.css']
         }), 
         __metadata('design:paramtypes', [router_deprecated_1.Router, order_service_1.OrderService, router_deprecated_1.RouteParams])
     ], ItemSelectionComponent);

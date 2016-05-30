@@ -20,7 +20,7 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.orderService.getOrders()
-            .then(function (orders) { return _this.orders = orders.slice(0, 3); });
+            .then(function (orders) { return _this.orders = orders.slice(0, 4); });
     };
     DashboardComponent.prototype.gotoDetail = function (order) {
         var link = ['OrderDetail', { id: order.id }];

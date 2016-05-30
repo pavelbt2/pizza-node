@@ -21,7 +21,7 @@ export class DashboardComponent
 	
 	ngOnInit() {
 		this.orderService.getOrders()
-		.then(orders => this.orders = orders.slice(0,3))
+		.then(orders => this.orders = orders.slice(0,4))
 		;
 	}
 	
