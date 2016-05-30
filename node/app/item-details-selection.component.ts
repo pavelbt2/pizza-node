@@ -2,6 +2,7 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Router, RouteParams } from '@angular/router-deprecated';
 import { OrderService } from './order.service';
 import { Item } from './item';
+import { OrderedItem } from './ordered-item';
 
 @Component({
 	selector: 's-item-selection',
@@ -17,6 +18,8 @@ export class ItemDetailsSelectionComponent implements OnInit {
     count : number;
     details : string;
     user : string;
+    
+    error: any;
     
     constructor(private router: Router, private orderService: OrderService, private routeParams: RouteParams) {
 	}
@@ -40,6 +43,20 @@ export class ItemDetailsSelectionComponent implements OnInit {
     
     placeOrder() {
         
+        var orderedItem : OrderedItem = new OrderedItem();
+        orderedItem.count = this.count;
+        orderedItem.user = this.user;
+        orderedItem.details = this.details;
+        orderedItem.item = this.item;
+        
+		this.orderService
+			.addItemToOrder(this.orderId, orderedItem)
+			.then(order => {				
+				//this.order = order; // saved order, w/o id if new
+				console.info("finished placeOrder()");
+				//this.goBack(order);
+			})
+			.catch(error => this.error = error); // TODO: Display error message        
     }
     
     goBack() {

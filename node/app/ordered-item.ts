@@ -3,5 +3,6 @@ import { Item } from './item';
 export class OrderedItem {
     count: number;
     user: string;
-    item: Item;
+    item: Item; 
+    details : string;    
 }

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var order_service_1 = require('./order.service');
+var ordered_item_1 = require('./ordered-item');
 var ItemDetailsSelectionComponent = (function () {
     function ItemDetailsSelectionComponent(router, orderService, routeParams) {
         this.router = router;
@@ -30,6 +31,20 @@ var ItemDetailsSelectionComponent = (function () {
         return;
     };
     ItemDetailsSelectionComponent.prototype.placeOrder = function () {
+        var _this = this;
+        var orderedItem = new ordered_item_1.OrderedItem();
+        orderedItem.count = this.count;
+        orderedItem.user = this.user;
+        orderedItem.details = this.details;
+        orderedItem.item = this.item;
+        this.orderService
+            .addItemToOrder(this.orderId, orderedItem)
+            .then(function (order) {
+            //this.order = order; // saved order, w/o id if new
+            console.info("finished placeOrder()");
+            //this.goBack(order);
+        })
+            .catch(function (error) { return _this.error = error; }); // TODO: Display error message        
     };
     ItemDetailsSelectionComponent.prototype.goBack = function () {
         window.history.back();

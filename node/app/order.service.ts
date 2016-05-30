@@ -4,6 +4,7 @@ import 'rxjs/add/operator/toPromise'; // import toPromise() for Observable
 import 'rxjs/add/operator/map'; // TODO - OK?? copied from stackoverflow
 import { Order } from './order';
 import { Item } from './item';
+import { OrderedItem } from './ordered-item';
 
 @Injectable()
 export class OrderService {
@@ -13,6 +14,7 @@ export class OrderService {
 	private orderCreateUrl = 'http://localhost:8080/Pizza/order/create';
 	private orderUpdateUrl = 'http://localhost:8080/Pizza/order/update';
 	private itemListUrl = 'http://localhost:8080/Pizza/item/fetchall';
+	private addItemToOrderUrl = 'http://localhost:8080/Pizza/order/additem';
 
 	private itemList : Promise<Item[]>; // keep to fetch only once
 	
@@ -90,13 +92,25 @@ export class OrderService {
              .catch(this.handleError);
 	}
 	
+	public addItemToOrder(orderId: number, orderedItem: OrderedItem) {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
 
-		
+		let url = `${this.addItemToOrderUrl}/${orderId}`;
+
+		return this.http
+             .post(url, JSON.stringify(orderedItem), {headers: headers})
+             .toPromise()
+             //.then(() => ???)
+			 // TODO return updated order
+             .catch(this.handleError);		
+	}
+			
 	private handleError(error: any) {
 		console.error('An error occurred :(((', error);
 		return Promise.reject(error.message || error);
 		// TODO better handling?
-	}		
+	}
 	
 }
 

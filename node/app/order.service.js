@@ -20,6 +20,7 @@ var OrderService = (function () {
         this.orderCreateUrl = 'http://localhost:8080/Pizza/order/create';
         this.orderUpdateUrl = 'http://localhost:8080/Pizza/order/update';
         this.itemListUrl = 'http://localhost:8080/Pizza/item/fetchall';
+        this.addItemToOrderUrl = 'http://localhost:8080/Pizza/order/additem';
     }
     OrderService.prototype.getItemList = function () {
         if (this.itemList == null) {
@@ -77,6 +78,15 @@ var OrderService = (function () {
             .post(url, JSON.stringify(order), { headers: headers })
             .toPromise()
             .then(function () { return order; })
+            .catch(this.handleError);
+    };
+    OrderService.prototype.addItemToOrder = function (orderId, orderedItem) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        var url = this.addItemToOrderUrl + "/" + orderId;
+        return this.http
+            .post(url, JSON.stringify(orderedItem), { headers: headers })
+            .toPromise()
             .catch(this.handleError);
     };
     OrderService.prototype.handleError = function (error) {
