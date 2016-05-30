@@ -1,0 +1,19 @@
+<div *ngIf="item">
+    <h2>Select details for: {{item.pretty}}</h2>
+    <div>
+        <label>Count </label>
+        <input [(ngModel)]="count" placeholder="count">
+    </div>
+    <div>
+        <label>Details: </label>
+        <input [(ngModel)]="details" placeholder="details">
+    </div>
+    <div>
+        <label>User: </label>
+        <input [(ngModel)]="user" placeholder="enter your name">
+    </div>
+</div>
+
+<button (click)="goBack()">Back</button>
+<button (click)="placeOrder()">PlaceOrder</button>
+
