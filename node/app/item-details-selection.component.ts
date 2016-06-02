@@ -48,15 +48,16 @@ export class ItemDetailsSelectionComponent implements OnInit {
         orderedItem.user = this.user;
         orderedItem.details = this.details;
         orderedItem.item = this.item;
+        orderedItem.orderId = this.orderId;
         
 		this.orderService
 			.addItemToOrder(this.orderId, orderedItem)
-			.then(order => {				
-				//this.order = order; // saved order, w/o id if new
-				console.info("finished placeOrder()");
-				//this.goBack(order);
+			.then(() => {
+                this.router.navigate(['OrderDetail', { id: this.orderId }]);                
 			})
-			.catch(error => this.error = error); // TODO: Display error message        
+			.catch(error => this.error = error); // TODO: Display error message
+            
+
     }
     
     goBack() {

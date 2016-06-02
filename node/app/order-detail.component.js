@@ -32,9 +32,6 @@ var OrderDetailComponent = (function () {
         this.orderService.getCurrentOrder().then(function (order) { return _this.order = order; });
         // shouldn't get here!!
         if (this.order == null) {
-            // init to new Order if no order id selected - to have an object to edit in any case
-            this.navigated = false;
-            this.order = new order_1.Order();
         }
     };
     OrderDetailComponent.prototype.save = function () {

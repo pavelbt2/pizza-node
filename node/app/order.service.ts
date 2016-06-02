@@ -11,7 +11,6 @@ export class OrderService {
 
 	private allOrdersGetUrl = 'http://localhost:8080/Pizza/order/fetchall';
 	private orderGetUrl = 'http://localhost:8080/Pizza/order/get';  // URL to web api TODO	
-	private orderCreateUrl = 'http://localhost:8080/Pizza/order/create';
 	private orderUpdateUrl = 'http://localhost:8080/Pizza/order/update';
 	private itemListUrl = 'http://localhost:8080/Pizza/item/fetchall';
 	private addItemToOrderUrl = 'http://localhost:8080/Pizza/order/additem';
@@ -60,23 +59,9 @@ export class OrderService {
 
 	// Add or Update an order
 	saveOrder(order: Order): Promise<Order>  {
-		if (order.id) {
-			return this.updateOrder(order);
-		}
-		return this.createOrder(order);
+		return this.updateOrder(order);
 	}	
-	
-	// Add new order
-	private createOrder(order: Order): Promise<Order> {
-		let headers = new Headers({
-			'Content-Type': 'application/json'});
 
-		return this.http
-             .post(this.orderCreateUrl, JSON.stringify(order), {headers: headers})
-             .toPromise()
-             .then(res => res.json())
-             .catch(this.handleError);
-	}
 	
 	// Update existing order
 	private updateOrder(order: Order) {

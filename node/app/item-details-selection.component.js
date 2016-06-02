@@ -37,14 +37,13 @@ var ItemDetailsSelectionComponent = (function () {
         orderedItem.user = this.user;
         orderedItem.details = this.details;
         orderedItem.item = this.item;
+        orderedItem.orderId = this.orderId;
         this.orderService
             .addItemToOrder(this.orderId, orderedItem)
-            .then(function (order) {
-            //this.order = order; // saved order, w/o id if new
-            console.info("finished placeOrder()");
-            //this.goBack(order);
+            .then(function () {
+            _this.router.navigate(['OrderDetail', { id: _this.orderId }]);
         })
-            .catch(function (error) { return _this.error = error; }); // TODO: Display error message        
+            .catch(function (error) { return _this.error = error; }); // TODO: Display error message
     };
     ItemDetailsSelectionComponent.prototype.goBack = function () {
         window.history.back();
