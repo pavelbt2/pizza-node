@@ -25,11 +25,6 @@ export class OrdersComponent implements OnInit {
 	ngOnInit() {
 		this.getOrders();
 	}	
-
-	onSelect(order: Order) {
-		this.selectedOrder = order;
-		this.addingOrder = false; 
-	}	
 	
 	getOrders() {
 		this.orderService.getOrders().then(orders => this.orders = orders)
@@ -37,13 +32,8 @@ export class OrdersComponent implements OnInit {
 		;
 	}
 	
-	gotoDetail() {
-		this.router.navigate(['OrderDetail', { id: this.selectedOrder.id }]);
-	}
-	
-	addOrder() {
-		this.addingOrder = true;
-		this.selectedOrder = null;
+	gotoDetail(order: Order) {
+		this.router.navigate(['OrderDetail', { id: order.id }]);
 	}
 
 	close(savedOrder: Order) {

@@ -4,19 +4,7 @@
 <ul class="orders">
 	<li *ngFor="let order of orders" 
 		[class.selected]="order === selectedOrder"
-		(click)="onSelect(order)">
+		(click)="gotoDetail(order)">
 		<span class="badge">{{order.date}}</span> {{order.responsible}}
 	</li>			
 </ul>
-
-<button (click)="addOrder()">Add New Order</button>
-<div *ngIf="addingOrder">
-	<s-order-detail (close)="close($event)"></s-order-detail>
-</div>
-
-<div *ngIf="selectedOrder">
-	<h2>
-		{{selectedOrder.date | uppercase}} order selected
-	</h2>
-	<button (click)="gotoDetail()">View Full Details</button>
-</div>		

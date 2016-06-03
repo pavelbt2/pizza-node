@@ -22,22 +22,14 @@ var OrdersComponent = (function () {
     OrdersComponent.prototype.ngOnInit = function () {
         this.getOrders();
     };
-    OrdersComponent.prototype.onSelect = function (order) {
-        this.selectedOrder = order;
-        this.addingOrder = false;
-    };
     OrdersComponent.prototype.getOrders = function () {
         var _this = this;
         this.orderService.getOrders().then(function (orders) { return _this.orders = orders; })
             .catch(function (error) { return _this.error = error; }); // TODO: Display error message
         ;
     };
-    OrdersComponent.prototype.gotoDetail = function () {
-        this.router.navigate(['OrderDetail', { id: this.selectedOrder.id }]);
-    };
-    OrdersComponent.prototype.addOrder = function () {
-        this.addingOrder = true;
-        this.selectedOrder = null;
+    OrdersComponent.prototype.gotoDetail = function (order) {
+        this.router.navigate(['OrderDetail', { id: order.id }]);
     };
     OrdersComponent.prototype.close = function (savedOrder) {
         this.addingOrder = false;

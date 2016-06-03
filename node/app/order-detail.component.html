@@ -1,11 +1,6 @@
 <div *ngIf="order">
-	<h2>Order: {{order.date}} ({{order.responsible}})</h2>
-	<div>
-		<label>date: </label>{{order.date}}</div>
-	<div>
-		<label>responsible: </label>
-		<input [(ngModel)]="order.responsible" placeholder="responsible">
-	</div>
+	<h2>Order: {{order.date}}</h2>
+	<label>responsible: {{order.responsible}}</label>
 
 	<h2>Ordered items:</h2>
 	<ul class="orders">
@@ -18,4 +13,4 @@
 	<button (click)="goBack()">Back</button>
 	<button (click)="save()">Save</button>
 	<button (click)="gotoAddItem()">Add Item</button>
-</div>	
+</div>
