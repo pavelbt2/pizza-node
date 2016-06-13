@@ -2,7 +2,7 @@ import { OrderedItem } from './ordered-item';
 
 export class Order {
 	id: number;
-	date: string;
+	date: Date;
 	responsible: string;
 	items: OrderedItem[] = [];
 }
