@@ -26,7 +26,7 @@ export class OrdersComponent implements OnInit {
 		this.getOrders();
 	}	
 	
-	getOrders() {
+	private getOrders() {
 		this.orderService.getOrders().then(orders => this.orders = orders)
 		.catch(error => this.error = error); // TODO: Display error message
 		;
