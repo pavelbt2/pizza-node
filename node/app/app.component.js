@@ -14,6 +14,7 @@ var order_service_1 = require('./order.service');
 var orders_component_1 = require('./orders.component');
 var dashboard_component_1 = require('./dashboard.component');
 var order_detail_component_1 = require('./order-detail.component');
+var new_order_component_1 = require('./new-order.component');
 var item_selection_component_1 = require('./item-selection.component');
 var item_details_selection_component_1 = require('./item-details-selection.component');
 var AppComponent = (function () {
@@ -39,6 +40,16 @@ var AppComponent = (function () {
                 useAsDefault: true // this is the default route (for '/')
             },
             {
+                path: '/detail/:id',
+                name: 'OrderDetail',
+                component: order_detail_component_1.OrderDetailComponent
+            },
+            {
+                path: '/new-order/',
+                name: 'NewOrder',
+                component: new_order_component_1.NewOrderComponent
+            },
+            {
                 path: '/dashboard',
                 name: 'Dashboard',
                 component: dashboard_component_1.DashboardComponent
@@ -47,11 +58,6 @@ var AppComponent = (function () {
                 path: '/orders',
                 name: 'Orders',
                 component: orders_component_1.OrdersComponent // the component that the router should create when navigating to this route 
-            },
-            {
-                path: '/detail/:id',
-                name: 'OrderDetail',
-                component: order_detail_component_1.OrderDetailComponent
             },
             {
                 path: '/item-selection/:orderId',

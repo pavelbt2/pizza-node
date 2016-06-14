@@ -29,10 +29,16 @@ var OrderDetailComponent = (function () {
             return;
         }
         // present current order
-        this.orderService.getCurrentOrder().then(function (order) { return _this.order = order; });
-        // shouldn't get here!!
-        if (this.order == null) {
-        }
+        this.orderService.getCurrentOrder().then(function (order) {
+            if (order.valid == false) {
+                console.info("currnet order doesn't exist yet");
+                _this.router.navigate(['NewOrder']);
+            }
+            else {
+                console.info("currnet order set");
+                _this.order = order;
+            }
+        });
     };
     OrderDetailComponent.prototype.save = function () {
         var _this = this;

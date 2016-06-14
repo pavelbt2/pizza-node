@@ -4,6 +4,7 @@ import { OrderService } from './order.service';
 import { OrdersComponent } from './orders.component';
 import { DashboardComponent } from './dashboard.component';
 import { OrderDetailComponent } from './order-detail.component';
+import { NewOrderComponent } from './new-order.component';
 import { ItemSelectionComponent } from './item-selection.component';
 import { ItemDetailsSelectionComponent } from './item-details-selection.component';
 
@@ -35,6 +36,16 @@ import { ItemDetailsSelectionComponent } from './item-details-selection.componen
 		useAsDefault: true // this is the default route (for '/')
 	},
 	{
+		path: '/detail/:id',
+		name: 'OrderDetail',
+		component: OrderDetailComponent
+	},
+	{
+		path: '/new-order/',
+		name: 'NewOrder',
+		component: NewOrderComponent
+	},		
+	{
 		path: '/dashboard',
 		name: 'Dashboard',
 		component: DashboardComponent
@@ -43,11 +54,6 @@ import { ItemDetailsSelectionComponent } from './item-details-selection.componen
 		path: '/orders', //the router matches this route's path to the URL in the browser address bar
 		name: 'Orders', // the official name of the route; it must begin with a capital letter to avoid confusion with the path
 		component: OrdersComponent // the component that the router should create when navigating to this route 
-	},
-	{
-		path: '/detail/:id',
-		name: 'OrderDetail',
-		component: OrderDetailComponent
 	},
 	{
 		path: '/item-selection/:orderId',

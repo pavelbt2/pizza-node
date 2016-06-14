@@ -32,12 +32,21 @@ export class OrderDetailComponent implements OnInit {
 		}
 		
 		// present current order
-		this.orderService.getCurrentOrder().then(order => this.order = order);
+		this.orderService.getCurrentOrder().then(
+			order =>
+			{								
+				if (order.valid == false) {
+					console.info("currnet order doesn't exist yet");
+					this.router.navigate(['NewOrder'])
+				} else {
+					console.info("currnet order set");
+					this.order = order;	
+				}
+			} 
 		
-		// shouldn't get here!!
-		if (this.order == null) {
-			// TODO show error
-		}
+		);
+		
+
 	}
 	
 	save() {

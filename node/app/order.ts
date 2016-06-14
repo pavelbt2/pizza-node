@@ -6,5 +6,6 @@ export class Order {
 	date: Date;
 	responsible: string;
 	status: OrderStatus;
+	valid: boolean;
 	items: OrderedItem[] = [];
 }
