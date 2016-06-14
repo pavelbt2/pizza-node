@@ -1,6 +1,7 @@
 <div *ngIf="order">
 	<h2>Order: {{order.date}}</h2>
 	<label>responsible: {{order.responsible}}</label>
+	<label>status: {{order.status.pretty}}</label>
 
 	<h2>Ordered items:</h2>
 	<ul class="orders">
