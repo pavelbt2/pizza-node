@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var order_service_1 = require('./order.service');
+var login_component_1 = require('./login.component');
 var orders_component_1 = require('./orders.component');
 var dashboard_component_1 = require('./dashboard.component');
 var order_detail_component_1 = require('./order-detail.component');
@@ -19,7 +20,7 @@ var item_selection_component_1 = require('./item-selection.component');
 var item_details_selection_component_1 = require('./item-details-selection.component');
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'Pizza Order Center';
+        this.title = 'Pizza Order Center 2';
     }
     AppComponent = __decorate([
         core_1.Component({
@@ -34,10 +35,15 @@ var AppComponent = (function () {
         }),
         router_deprecated_1.RouteConfig([
             {
+                path: '/login/',
+                name: 'Login',
+                component: login_component_1.LoginComponent,
+                useAsDefault: true // this is the default route (for '/')
+            },
+            {
                 path: '/detail/',
                 name: 'CurrentOrder',
                 component: order_detail_component_1.OrderDetailComponent,
-                useAsDefault: true // this is the default route (for '/')
             },
             {
                 path: '/detail/:id',

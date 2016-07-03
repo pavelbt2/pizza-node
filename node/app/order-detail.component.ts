@@ -34,7 +34,8 @@ export class OrderDetailComponent implements OnInit {
 		// present current order
 		this.orderService.getCurrentOrder().then(
 			order =>
-			{								
+			{			
+				console.info("received order="+order);					
 				if (order.valid == false) {
 					console.info("currnet order doesn't exist yet");
 					this.router.navigate(['NewOrder'])

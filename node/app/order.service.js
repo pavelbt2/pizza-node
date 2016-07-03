@@ -10,17 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var angular2_jwt_1 = require('angular2-jwt');
 require('rxjs/add/operator/toPromise'); // import toPromise() for Observable
 require('rxjs/add/operator/map'); // TODO - OK?? copied from stackoverflow
 var OrderService = (function () {
-    function OrderService(http) {
+    function OrderService(http, authHttp) {
         this.http = http;
-        this.allOrdersGetUrl = 'http://localhost:8080/Pizza/order/fetchall';
-        this.orderGetUrl = 'http://localhost:8080/Pizza/order/get'; // URL to web api TODO	
-        this.orderUpdateUrl = 'http://localhost:8080/Pizza/order/update';
-        this.itemListUrl = 'http://localhost:8080/Pizza/item/fetchall';
-        this.addItemToOrderUrl = 'http://localhost:8080/Pizza/order/additem';
+        this.authHttp = authHttp;
+        this.loginUrl = 'http://localhost:8080/Pizza/login';
+        this.allOrdersGetUrl = 'http://localhost:8080/Pizza/api/order/fetchall';
+        this.orderGetUrl = 'http://localhost:8080/Pizza/api/order/get'; // URL to web api TODO	
+        this.orderUpdateUrl = 'http://localhost:8080/Pizza/api/order/update';
+        this.itemListUrl = 'http://localhost:8080/Pizza/api/item/fetchall';
+        this.addItemToOrderUrl = 'http://localhost:8080/Pizza/api/order/additem';
     }
+    OrderService.prototype.login = function (auth) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http
+            .post(this.loginUrl, JSON.stringify(auth), { headers: headers })
+            .toPromise()
+            .then(function (response) {
+            console.info("got jwt token from server: " + response.json().token);
+            localStorage.setItem('jwt', response.json().token);
+        })
+            .catch(this.handleError);
+    };
     OrderService.prototype.getItemList = function () {
         if (this.itemList == null) {
             console.info("getItemList() - fething from server");
@@ -32,7 +47,8 @@ var OrderService = (function () {
         return this.itemList;
     };
     OrderService.prototype.getOrders = function () {
-        return this.http.get(this.allOrdersGetUrl) // returns Observable
+        console.info("getOrders(): jwt=" + localStorage.getItem('jwt'));
+        return this.authHttp.get(this.allOrdersGetUrl) // returns Observable
             .toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
@@ -43,9 +59,12 @@ var OrderService = (function () {
         if (id != null) {
             url = this.orderGetUrl + "/" + id;
         }
-        return this.http.get(url) // returns Observable
+        return this.authHttp.get(url) // returns Observable
             .toPromise()
-            .then(function (response) { return response.json(); })
+            .then(function (response) {
+            console.info("got response " + response);
+            return response.json();
+        })
             .catch(this.handleError);
     };
     OrderService.prototype.getCurrentOrder = function () {
@@ -82,7 +101,7 @@ var OrderService = (function () {
     };
     OrderService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp])
     ], OrderService);
     return OrderService;
 }());

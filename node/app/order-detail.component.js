@@ -30,6 +30,7 @@ var OrderDetailComponent = (function () {
         }
         // present current order
         this.orderService.getCurrentOrder().then(function (order) {
+            console.info("received order=" + order);
             if (order.valid == false) {
                 console.info("currnet order doesn't exist yet");
                 _this.router.navigate(['NewOrder']);

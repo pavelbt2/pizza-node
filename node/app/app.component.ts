@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { OrderService } from './order.service';
+import { LoginComponent } from './login.component';
 import { OrdersComponent } from './orders.component';
 import { DashboardComponent } from './dashboard.component';
 import { OrderDetailComponent } from './order-detail.component';
@@ -30,10 +31,15 @@ import { ItemDetailsSelectionComponent } from './item-details-selection.componen
 
 @RouteConfig([
 	{
+		path: '/login/',
+		name: 'Login',
+		component: LoginComponent,
+		useAsDefault: true // this is the default route (for '/')
+	},
+	{
 		path: '/detail/',
 		name: 'CurrentOrder',
 		component: OrderDetailComponent,
-		useAsDefault: true // this is the default route (for '/')
 	},
 	{
 		path: '/detail/:id',
@@ -70,6 +76,7 @@ import { ItemDetailsSelectionComponent } from './item-details-selection.componen
 
 
 export class AppComponent {
-	title = 'Pizza Order Center';
+	title = 'Pizza Order Center 2';
 }
+
 

@@ -1,25 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt'; 
 import 'rxjs/add/operator/toPromise'; // import toPromise() for Observable
 import 'rxjs/add/operator/map'; // TODO - OK?? copied from stackoverflow
 import { Order } from './order';
 import { Item } from './item';
 import { OrderedItem } from './ordered-item';
+import { JwtAuthenticationRequest } from './auth';
 
 @Injectable()
 export class OrderService {
 
-	private allOrdersGetUrl = 'http://localhost:8080/Pizza/order/fetchall';
-	private orderGetUrl = 'http://localhost:8080/Pizza/order/get';  // URL to web api TODO	
-	private orderUpdateUrl = 'http://localhost:8080/Pizza/order/update';
-	private itemListUrl = 'http://localhost:8080/Pizza/item/fetchall';
-	private addItemToOrderUrl = 'http://localhost:8080/Pizza/order/additem';
+	private loginUrl = 'http://localhost:8080/Pizza/login';
+	private allOrdersGetUrl = 'http://localhost:8080/Pizza/api/order/fetchall';
+	private orderGetUrl = 'http://localhost:8080/Pizza/api/order/get';  // URL to web api TODO	
+	private orderUpdateUrl = 'http://localhost:8080/Pizza/api/order/update';
+	private itemListUrl = 'http://localhost:8080/Pizza/api/item/fetchall';
+	private addItemToOrderUrl = 'http://localhost:8080/Pizza/api/order/additem';
 
 	private itemList : Promise<Item[]>; // keep to fetch only once
-	
 
-	constructor(private http: Http) {
-	}	
+	constructor(public http: Http, public authHttp: AuthHttp) {
+	}
+	
+	public login(auth: JwtAuthenticationRequest) {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+
+		return this.http
+             .post(this.loginUrl, JSON.stringify(auth), {headers: headers})
+             .toPromise()
+             .then(response => {
+				 console.info("got jwt token from server: " +  response.json().token);
+				 localStorage.setItem('jwt', response.json().token);
+			 })
+             .catch(this.handleError);		
+	}
 		
 	public getItemList() : Promise<Item[]> {	
 		if (this.itemList == null) {
@@ -34,7 +50,8 @@ export class OrderService {
 	}
 	
 	getOrders(): Promise<Order[]> {
-		return this.http.get(this.allOrdersGetUrl) // returns Observable
+		console.info("getOrders(): jwt="+localStorage.getItem('jwt'));
+		return this.authHttp.get(this.allOrdersGetUrl) // returns Observable
 			.toPromise()
 			.then(response => response.json())
 			.catch(this.handleError);		
@@ -45,11 +62,15 @@ export class OrderService {
 		let url = this.orderGetUrl;
 		if (id != null) {
 			url = `${this.orderGetUrl}/${id}`;	
-		}
+		}		
 		
-		return this.http.get(url) // returns Observable
+		return this.authHttp.get(url) // returns Observable
 			.toPromise()
-			.then(response => response.json())
+			.then(response => {
+				console.info("got response " + response);
+				return response.json()
+				}
+			)
 			.catch(this.handleError);	
 	}
 	
