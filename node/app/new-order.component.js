@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
-var order_1 = require('./order');
 var order_service_1 = require('./order.service');
 var NewOrderComponent = (function () {
     function NewOrderComponent(router, orderService, routeParams) {
@@ -18,14 +17,19 @@ var NewOrderComponent = (function () {
         this.orderService = orderService;
         this.routeParams = routeParams;
         this.close = new core_1.EventEmitter();
-        this.navigated = false; // true if navigated here
     }
     NewOrderComponent.prototype.ngOnInit = function () {
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', order_1.Order)
-    ], NewOrderComponent.prototype, "order", void 0);
+    NewOrderComponent.prototype.createNewOrder = function () {
+        var _this = this;
+        this.orderService.createNewOrder()
+            .then(function (order) {
+            _this.order = order; // saved order
+            console.info("created new order. id=" + order.id);
+            _this.router.navigate(['OrderDetail', { id: order.id }]);
+        })
+            .catch(function (error) { return _this.error = error; }); // TODO: Display error message
+    };
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

@@ -11,23 +11,29 @@ import { OrderService } from './order.service';
 })
 
 export class NewOrderComponent implements OnInit {
-	@Input() // needed before using a route
-	order: Order;	
-	
+		
 	@Output() 
 	close = new EventEmitter();
-	
+
+	order: Order;	
 	error: any;
-	navigated = false; // true if navigated here
 	
 	constructor(private router: Router, private orderService: OrderService, private routeParams: RouteParams) {
 	}
 
 	ngOnInit() {
-
 		
-
 	}
 	
+
+	createNewOrder() {
+		this.orderService.createNewOrder()
+		.then(order => {
+				this.order = order; // saved order
+				console.info("created new order. id="+order.id);
+						this.router.navigate(['OrderDetail', { id: order.id }]);
+			})
+			.catch(error => this.error = error); // TODO: Display error message
+	}
 		
 }

@@ -15,6 +15,7 @@ export class OrderService {
 	private allOrdersGetUrl = 'http://localhost:8080/Pizza/api/order/fetchall';
 	private orderGetUrl = 'http://localhost:8080/Pizza/api/order/get';  // URL to web api TODO	
 	private orderUpdateUrl = 'http://localhost:8080/Pizza/api/order/update';
+	private orderCreateUrl = 'http://localhost:8080/Pizza/api/order/create';
 	private itemListUrl = 'http://localhost:8080/Pizza/api/item/fetchall';
 	private addItemToOrderUrl = 'http://localhost:8080/Pizza/api/order/additem';
 
@@ -40,7 +41,7 @@ export class OrderService {
 	public getItemList() : Promise<Item[]> {	
 		if (this.itemList == null) {
 			console.info("getItemList() - fething from server");
-			this.itemList = this.http.get(this.itemListUrl) // returns Observable
+			this.itemList = this.authHttp.get(this.itemListUrl) // returns Observable
 			.toPromise()
 			.then(response => response.json())
 			.catch(this.handleError);
@@ -78,7 +79,18 @@ export class OrderService {
 		return this.getOrder(null);	
 	}
 
-	// Add or Update an order
+	// Create a new order
+	createNewOrder(): Promise<Order>  {
+		let url = `${this.orderCreateUrl}`;
+
+		return this.authHttp
+             .post(url, null)
+             .toPromise()
+             .then(response => response.json())
+             .catch(this.handleError);
+	}
+
+	// Update an order
 	saveOrder(order: Order): Promise<Order>  {
 		return this.updateOrder(order);
 	}	
@@ -86,26 +98,21 @@ export class OrderService {
 	
 	// Update existing order
 	private updateOrder(order: Order) {
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-
 		let url = `${this.orderUpdateUrl}/${order.id}`;
 
-		return this.http
-             .post(url, JSON.stringify(order), {headers: headers})
+		return this.authHttp
+             .post(url, JSON.stringify(order))
              .toPromise()
              .then(() => order)
              .catch(this.handleError);
-	}
+	}	
 	
 	public addItemToOrder(orderId: number, orderedItem: OrderedItem) {
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
 		let url = `${this.addItemToOrderUrl}/${orderId}`;
 
-		return this.http
-             .post(url, JSON.stringify(orderedItem), {headers: headers})
+		return this.authHttp
+             .post(url, JSON.stringify(orderedItem))
              .toPromise()
              //.then(() => ???)
 			 // TODO return updated order
