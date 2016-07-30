@@ -15,7 +15,9 @@ import { ItemDetailsSelectionComponent } from './item-details-selection.componen
 	template: `
 		<div>
 			<h1>{{title}}</h1>
-			{{loginService.isLoggedin}}
+		</div>
+		<div *ngIf="loginService.isLoggedIn()">			
+			<h2>Welcome {{loginService.getLoggedInUser()}} !!!</h2>
 			<button (click)="logout()">Logout</button>
 		</div>			
 		<nav>
@@ -94,6 +96,8 @@ export class AppComponent {
 		let link = ['Login'];
 		this.router.navigate(link);
 	}
+	
+	
 }
 
 

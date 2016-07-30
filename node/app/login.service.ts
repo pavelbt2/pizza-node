@@ -11,20 +11,22 @@ export class LoginService {
 	private loginUrl = 'http://localhost:8080/Pizza/login';
 
     jwtHelper: JwtHelper = new JwtHelper();
-	public isLoggedin: boolean = false;
-    user: string;
+	private isLoggedin: boolean = false;
+    private user: string;
 
 	constructor(public http: Http, public authHttp: AuthHttp) {
         if  (tokenNotExpired('jwt')) {            
 			console.info("logged in");
             this.isLoggedin=true;			
-			this.user = this.jwtHelper.decodeToken(
-				localStorage.getItem('jwt'));
-             //console.info("user="+JSON.stringify(this.user));
-             console.info("user="+this.user);
+			this.user = this.getUserFromJwt();
+            console.info("user="+this.user);
 		} 		
 	}
-
+	
+	private getUserFromJwt(): string {
+		return this.jwtHelper.decodeToken(
+				localStorage.getItem('jwt')).userId;
+	}
 	
 	public login(auth: JwtAuthenticationRequest) {
 		let headers = new Headers();
@@ -37,6 +39,7 @@ export class LoginService {
 				 console.info("got jwt token from server: " +  response.json().token);
 				 localStorage.setItem('jwt', response.json().token);
 				 this.isLoggedin = true;
+				 this.user = this.getUserFromJwt();
 			 })
              .catch(this.handleError);		
 	}
@@ -46,6 +49,14 @@ export class LoginService {
 		localStorage.removeItem('jwt');
         this.isLoggedin = false;
         this.user = null;
+	}
+	
+	public isLoggedIn() : boolean {
+		return this.isLoggedin;
+	}
+	
+	public getLoggedInUser() : string {
+		return this.user;
 	}
 			
             

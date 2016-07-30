@@ -28,14 +28,16 @@ var LoginComponent = (function () {
         console.info("trying to login: user = " + this.auth.username + " password = " + this.auth.password);
         this.loginService
             .login(this.auth)
+            .then(function (res) {
+            console.info("login success.");
+            var link = ['CurrentOrder'];
+            _this.router.navigate(link);
+        }) // must use then - otherwise won't wait for jwt
             .catch(function (error) {
             _this.error = error;
             console.info("login error.");
             // TODO: Display error message
         });
-        console.info("login success.");
-        var link = ['CurrentOrder'];
-        this.router.navigate(link);
     };
     __decorate([
         core_1.Output(), 

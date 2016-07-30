@@ -23,11 +23,13 @@ var LoginService = (function () {
         if (angular2_jwt_1.tokenNotExpired('jwt')) {
             console.info("logged in");
             this.isLoggedin = true;
-            this.user = this.jwtHelper.decodeToken(localStorage.getItem('jwt'));
-            //console.info("user="+JSON.stringify(this.user));
+            this.user = this.getUserFromJwt();
             console.info("user=" + this.user);
         }
     }
+    LoginService.prototype.getUserFromJwt = function () {
+        return this.jwtHelper.decodeToken(localStorage.getItem('jwt')).userId;
+    };
     LoginService.prototype.login = function (auth) {
         var _this = this;
         var headers = new http_1.Headers();
@@ -39,6 +41,7 @@ var LoginService = (function () {
             console.info("got jwt token from server: " + response.json().token);
             localStorage.setItem('jwt', response.json().token);
             _this.isLoggedin = true;
+            _this.user = _this.getUserFromJwt();
         })
             .catch(this.handleError);
     };
@@ -47,6 +50,12 @@ var LoginService = (function () {
         localStorage.removeItem('jwt');
         this.isLoggedin = false;
         this.user = null;
+    };
+    LoginService.prototype.isLoggedIn = function () {
+        return this.isLoggedin;
+    };
+    LoginService.prototype.getLoggedInUser = function () {
+        return this.user;
     };
     LoginService.prototype.handleError = function (error) {
         console.error('An error occurred during login :(((', error);

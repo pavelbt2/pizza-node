@@ -33,15 +33,17 @@ export class LoginComponent implements OnInit {
         
 		this.loginService
 			.login(this.auth)
+			.then(res => {
+               console.info("login success.");
+                let link = ['CurrentOrder'];
+		        this.router.navigate(link);				
+			}) // must use then - otherwise won't wait for jwt
 			.catch(error => {
                 this.error = error;
                 console.info("login error.");
                 // TODO: Display error message
-            });
+            }); 
 			
-		console.info("login success.");
-                let link = ['CurrentOrder'];
-		        this.router.navigate(link);	
 	}	
 		
 }
