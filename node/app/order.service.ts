@@ -23,20 +23,6 @@ export class OrderService {
 
 	constructor(public http: Http, public authHttp: AuthHttp) {
 	}
-	
-	public login(auth: JwtAuthenticationRequest) {
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-
-		return this.http
-             .post(this.loginUrl, JSON.stringify(auth), {headers: headers})
-             .toPromise()
-             .then(response => {
-				 console.info("got jwt token from server: " +  response.json().token);
-				 localStorage.setItem('jwt', response.json().token);
-			 })
-             .catch(this.handleError);		
-	}
 		
 	public getItemList() : Promise<Item[]> {	
 		if (this.itemList == null) {

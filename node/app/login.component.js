@@ -10,12 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
-var order_service_1 = require('./order.service');
+var login_service_1 = require('./login.service');
 var auth_1 = require('./auth');
 var LoginComponent = (function () {
-    function LoginComponent(router, orderService, routeParams) {
+    function LoginComponent(router, loginService, routeParams) {
         this.router = router;
-        this.orderService = orderService;
+        this.loginService = loginService;
         this.routeParams = routeParams;
         this.close = new core_1.EventEmitter();
     }
@@ -26,18 +26,16 @@ var LoginComponent = (function () {
         var _this = this;
         // TODO check that not user+password empty
         console.info("trying to login: user = " + this.auth.username + " password = " + this.auth.password);
-        this.orderService
+        this.loginService
             .login(this.auth)
-            .then(function (res) {
-            console.info("login success.");
-            var link = ['CurrentOrder'];
-            _this.router.navigate(link);
-        })
             .catch(function (error) {
             _this.error = error;
             console.info("login error.");
             // TODO: Display error message
         });
+        console.info("login success.");
+        var link = ['CurrentOrder'];
+        this.router.navigate(link);
     };
     __decorate([
         core_1.Output(), 
@@ -48,7 +46,7 @@ var LoginComponent = (function () {
             selector: 's-login',
             templateUrl: 'app/login.component.html',
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, order_service_1.OrderService, router_deprecated_1.RouteParams])
+        __metadata('design:paramtypes', [router_deprecated_1.Router, login_service_1.LoginService, router_deprecated_1.RouteParams])
     ], LoginComponent);
     return LoginComponent;
 }());

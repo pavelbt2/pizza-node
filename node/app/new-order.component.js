@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var order_service_1 = require('./order.service');
+var login_service_1 = require('./login.service');
 var NewOrderComponent = (function () {
-    function NewOrderComponent(router, orderService, routeParams) {
+    function NewOrderComponent(router, orderService, loginService, routeParams) {
         this.router = router;
         this.orderService = orderService;
+        this.loginService = loginService;
         this.routeParams = routeParams;
         this.close = new core_1.EventEmitter();
     }
@@ -39,7 +41,7 @@ var NewOrderComponent = (function () {
             selector: 's-new-order',
             templateUrl: 'app/new-order.component.html',
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, order_service_1.OrderService, router_deprecated_1.RouteParams])
+        __metadata('design:paramtypes', [router_deprecated_1.Router, order_service_1.OrderService, login_service_1.LoginService, router_deprecated_1.RouteParams])
     ], NewOrderComponent);
     return NewOrderComponent;
 }());

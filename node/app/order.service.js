@@ -25,18 +25,6 @@ var OrderService = (function () {
         this.itemListUrl = 'http://localhost:8080/Pizza/api/item/fetchall';
         this.addItemToOrderUrl = 'http://localhost:8080/Pizza/api/order/additem';
     }
-    OrderService.prototype.login = function (auth) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http
-            .post(this.loginUrl, JSON.stringify(auth), { headers: headers })
-            .toPromise()
-            .then(function (response) {
-            console.info("got jwt token from server: " + response.json().token);
-            localStorage.setItem('jwt', response.json().token);
-        })
-            .catch(this.handleError);
-    };
     OrderService.prototype.getItemList = function () {
         if (this.itemList == null) {
             console.info("getItemList() - fething from server");

@@ -3,7 +3,7 @@
 	<label>responsible: {{order.responsible}}</label>
 	<label>status: {{order.status.pretty}}</label>
 
-	<h2>Ordered items:</h2>
+	<h2>Order items:</h2>
 	<ul class="orders">
 		<li *ngFor="let orderedItem of order.items" >
 			<span class="badge">{{orderedItem.item.pretty}}</span>

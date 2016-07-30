@@ -1,8 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Router, RouteParams } from '@angular/router-deprecated';
-import { OrderService } from './order.service';
-import { JwtAuthenticationRequest } from './auth';
-
+import { LoginService } from './login.service';
+import { JwtAuthenticationRequest } from './auth'; 
 
 @Component({
 	selector: 's-login',
@@ -21,7 +20,7 @@ export class LoginComponent implements OnInit {
 	error: any;
 
 	
-	constructor(private router: Router, private orderService: OrderService, private routeParams: RouteParams) {
+	constructor(private router: Router, private loginService: LoginService, private routeParams: RouteParams) {
 	}
 
 	ngOnInit() {
@@ -32,18 +31,17 @@ export class LoginComponent implements OnInit {
         // TODO check that not user+password empty
         console.info("trying to login: user = " + this.auth.username + " password = " + this.auth.password);
         
-		this.orderService
+		this.loginService
 			.login(this.auth)
-			.then(res => {
-               console.info("login success.");
-                let link = ['CurrentOrder'];
-		        this.router.navigate(link);				
-			})
 			.catch(error => {
                 this.error = error;
                 console.info("login error.");
                 // TODO: Display error message
-            }); 
+            });
+			
+		console.info("login success.");
+                let link = ['CurrentOrder'];
+		        this.router.navigate(link);	
 	}	
 		
 }

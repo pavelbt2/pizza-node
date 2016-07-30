@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { Router, RouteParams, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { OrderService } from './order.service';
+import { LoginService } from './login.service';
 import { LoginComponent } from './login.component';
 import { OrdersComponent } from './orders.component';
 import { DashboardComponent } from './dashboard.component';
@@ -9,11 +10,14 @@ import { NewOrderComponent } from './new-order.component';
 import { ItemSelectionComponent } from './item-selection.component';
 import { ItemDetailsSelectionComponent } from './item-details-selection.component';
 
-
 @Component({
 	selector: 's-pizza-app',
 	template: `
-		<h1>{{title}}</h1>
+		<div>
+			<h1>{{title}}</h1>
+			{{loginService.isLoggedin}}
+			<button (click)="logout()">Logout</button>
+		</div>			
 		<nav>
 			<a [routerLink]="['CurrentOrder']">Current Order</a>
 			<a [routerLink]="['Dashboard']">Dashboard</a>
@@ -24,7 +28,8 @@ import { ItemDetailsSelectionComponent } from './item-details-selection.componen
 	directives: [ROUTER_DIRECTIVES],
 	providers: [
 		ROUTER_PROVIDERS,
-		OrderService // needed for injection to child components
+		OrderService, // needed for injection to child components
+		LoginService
 	], // providers list for dependency injection
 	styleUrls: ['app/app.component.css'],
 })
@@ -76,7 +81,19 @@ import { ItemDetailsSelectionComponent } from './item-details-selection.componen
 
 
 export class AppComponent {
-	title = 'Pizza Order Center 2';
+	title = 'Pizza Order Center';		
+	
+	constructor(private router: Router, private loginService: LoginService) {
+	}
+	
+	ngOnInit() {
+	}
+	
+	logout() {
+		this.loginService.logout();
+		let link = ['Login'];
+		this.router.navigate(link);
+	}
 }
 
 

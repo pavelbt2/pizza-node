@@ -2,6 +2,7 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Router, RouteParams } from '@angular/router-deprecated';
 import { Order } from './order';
 import { OrderService } from './order.service';
+import { LoginService } from './login.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class NewOrderComponent implements OnInit {
 	order: Order;	
 	error: any;
 	
-	constructor(private router: Router, private orderService: OrderService, private routeParams: RouteParams) {
+	constructor(private router: Router, private orderService: OrderService, private loginService:LoginService, private routeParams: RouteParams) {
 	}
 
 	ngOnInit() {
