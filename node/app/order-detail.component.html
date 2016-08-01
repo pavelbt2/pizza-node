@@ -8,6 +8,7 @@
 		<li *ngFor="let orderedItem of order.items" >
 			<span class="badge">{{orderedItem.item.pretty}}</span>
 			 - {{orderedItem.user}} - {{orderedItem.count}}
+			 - {{orderedItem.details}}
 		</li>			
 	</ul>
 	
