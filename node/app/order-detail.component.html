@@ -13,6 +13,8 @@
 	</ul>
 	
 	<button (click)="goBack()">Back</button>
-	<button (click)="save()">Save</button>
 	<button (click)="gotoAddItem()">Add Item</button>
+	<div *ngIf="canSubmit()">
+		<button (click)="submitOrder()">Submit</button>
+	</div>	
 </div>

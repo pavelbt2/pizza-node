@@ -2,6 +2,7 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Router, RouteParams } from '@angular/router-deprecated';
 import { Order } from './order';
 import { OrderService } from './order.service';
+import { LoginService } from './login.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class OrderDetailComponent implements OnInit {
 	error: any;
 	navigated = false; // true if navigated here
 	
-	constructor(private router: Router, private orderService: OrderService, private routeParams: RouteParams) {
+	constructor(private router: Router, private routeParams: RouteParams, 
+		private orderService: OrderService, private loginService: LoginService) {
 	}
 
 	ngOnInit() {
@@ -50,15 +52,28 @@ export class OrderDetailComponent implements OnInit {
 
 	}
 	
-	save() {
-		this.orderService
-			.saveOrder(this.order)
-			.then(order => {				
-				this.order = order; // saved order, w/o id if new
-				console.info("saved order: id=" + order.id);
-				this.goBack(order);
-			})
-			.catch(error => this.error = error); // TODO: Display error message
+	submitOrder() {
+		console.info("TODO");
+				
+		// this.orderService
+		// 	.saveOrder(this.order)
+		// 	.then(order => {				
+		// 		this.order = order; // saved order, w/o id if new
+		// 		console.info("saved order: id=" + order.id);
+		// 		this.goBack(order);
+		// 	})
+		// 	.catch(error => this.error = error); // TODO: Display error message
+	}
+	
+	// returns true iif this user can submit the order
+	canSubmit() : boolean {
+		if ((this.order.status.id != "OPEN") ||
+			 (this.order.responsible != this.loginService.getLoggedInUser())
+			) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	gotoAddItem() {

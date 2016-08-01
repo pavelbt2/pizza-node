@@ -71,10 +71,6 @@ var OrderService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    // Update an order
-    OrderService.prototype.saveOrder = function (order) {
-        return this.updateOrder(order);
-    };
     // Update existing order
     OrderService.prototype.updateOrder = function (order) {
         var url = this.orderUpdateUrl + "/" + order.id;

@@ -76,12 +76,6 @@ export class OrderService {
              .then(response => response.json())
              .catch(this.handleError);
 	}
-
-	// Update an order
-	saveOrder(order: Order): Promise<Order>  {
-		return this.updateOrder(order);
-	}	
-
 	
 	// Update existing order
 	private updateOrder(order: Order) {

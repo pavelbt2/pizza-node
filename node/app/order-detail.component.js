@@ -12,11 +12,13 @@ var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var order_1 = require('./order');
 var order_service_1 = require('./order.service');
+var login_service_1 = require('./login.service');
 var OrderDetailComponent = (function () {
-    function OrderDetailComponent(router, orderService, routeParams) {
+    function OrderDetailComponent(router, routeParams, orderService, loginService) {
         this.router = router;
-        this.orderService = orderService;
         this.routeParams = routeParams;
+        this.orderService = orderService;
+        this.loginService = loginService;
         this.close = new core_1.EventEmitter();
         this.navigated = false; // true if navigated here
     }
@@ -41,16 +43,24 @@ var OrderDetailComponent = (function () {
             }
         });
     };
-    OrderDetailComponent.prototype.save = function () {
-        var _this = this;
-        this.orderService
-            .saveOrder(this.order)
-            .then(function (order) {
-            _this.order = order; // saved order, w/o id if new
-            console.info("saved order: id=" + order.id);
-            _this.goBack(order);
-        })
-            .catch(function (error) { return _this.error = error; }); // TODO: Display error message
+    OrderDetailComponent.prototype.submitOrder = function () {
+        console.info("TODO");
+        // this.orderService
+        // 	.saveOrder(this.order)
+        // 	.then(order => {				
+        // 		this.order = order; // saved order, w/o id if new
+        // 		console.info("saved order: id=" + order.id);
+        // 		this.goBack(order);
+        // 	})
+        // 	.catch(error => this.error = error); // TODO: Display error message
+    };
+    // returns true iif this user can submit the order
+    OrderDetailComponent.prototype.canSubmit = function () {
+        if ((this.order.status.id != "OPEN") ||
+            (this.order.responsible != this.loginService.getLoggedInUser())) {
+            return false;
+        }
+        return true;
     };
     OrderDetailComponent.prototype.gotoAddItem = function () {
         this.router.navigate(['ItemSelection', { orderId: this.order.id }]);
@@ -76,7 +86,7 @@ var OrderDetailComponent = (function () {
             templateUrl: 'app/order-detail.component.html',
             styleUrls: ['app/order-detail.component.css']
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, order_service_1.OrderService, router_deprecated_1.RouteParams])
+        __metadata('design:paramtypes', [router_deprecated_1.Router, router_deprecated_1.RouteParams, order_service_1.OrderService, login_service_1.LoginService])
     ], OrderDetailComponent);
     return OrderDetailComponent;
 }());
