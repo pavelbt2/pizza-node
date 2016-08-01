@@ -7,6 +7,7 @@ import { Order } from './order';
 import { Item } from './item';
 import { OrderedItem } from './ordered-item';
 import { JwtAuthenticationRequest } from './auth';
+import { LoginService } from './login.service';
 
 @Injectable()
 export class OrderService {
@@ -21,7 +22,7 @@ export class OrderService {
 
 	private itemList : Promise<Item[]>; // keep to fetch only once
 
-	constructor(public http: Http, public authHttp: AuthHttp) {
+	constructor(public http: Http, public authHttp: AuthHttp, public loginService: LoginService) {
 	}
 		
 	public getItemList() : Promise<Item[]> {	
@@ -93,7 +94,15 @@ export class OrderService {
              .catch(this.handleError);
 	}	
 	
-	public addItemToOrder(orderId: number, orderedItem: OrderedItem) {
+	public addItemToOrder(orderId: number, item : Item,
+    	count : number, details : string ) {
+
+        var orderedItem : OrderedItem = new OrderedItem();
+        orderedItem.count = count;
+        orderedItem.details = details;
+        orderedItem.item = item;
+        orderedItem.orderId = orderId;
+		orderedItem.user = this.loginService.getLoggedInUser();
 
 		let url = `${this.addItemToOrderUrl}/${orderId}`;
 

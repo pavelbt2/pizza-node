@@ -17,7 +17,6 @@ export class ItemDetailsSelectionComponent implements OnInit {
     item : Item;
     count : number;
     details : string;
-    user : string;
     
     error: any;
     
@@ -41,23 +40,14 @@ export class ItemDetailsSelectionComponent implements OnInit {
 		return;        
     }
     
-    placeOrder() {
-        
-        var orderedItem : OrderedItem = new OrderedItem();
-        orderedItem.count = this.count;
-        orderedItem.user = this.user;
-        orderedItem.details = this.details;
-        orderedItem.item = this.item;
-        orderedItem.orderId = this.orderId;
-        
+    placeOrder() {        
 		this.orderService
-			.addItemToOrder(this.orderId, orderedItem)
+			.addItemToOrder(this.orderId, this.item, this.count, this.details)
 			.then(() => {
                 this.router.navigate(['OrderDetail', { id: this.orderId }]);                
 			})
 			.catch(error => this.error = error); // TODO: Display error message
             
-
     }
     
     goBack() {

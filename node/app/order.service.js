@@ -13,10 +13,13 @@ var http_1 = require('@angular/http');
 var angular2_jwt_1 = require('angular2-jwt');
 require('rxjs/add/operator/toPromise'); // import toPromise() for Observable
 require('rxjs/add/operator/map'); // TODO - OK?? copied from stackoverflow
+var ordered_item_1 = require('./ordered-item');
+var login_service_1 = require('./login.service');
 var OrderService = (function () {
-    function OrderService(http, authHttp) {
+    function OrderService(http, authHttp, loginService) {
         this.http = http;
         this.authHttp = authHttp;
+        this.loginService = loginService;
         this.loginUrl = 'http://localhost:8080/Pizza/login';
         this.allOrdersGetUrl = 'http://localhost:8080/Pizza/api/order/fetchall';
         this.orderGetUrl = 'http://localhost:8080/Pizza/api/order/get'; // URL to web api TODO	
@@ -81,7 +84,13 @@ var OrderService = (function () {
             .then(function () { return order; })
             .catch(this.handleError);
     };
-    OrderService.prototype.addItemToOrder = function (orderId, orderedItem) {
+    OrderService.prototype.addItemToOrder = function (orderId, item, count, details) {
+        var orderedItem = new ordered_item_1.OrderedItem();
+        orderedItem.count = count;
+        orderedItem.details = details;
+        orderedItem.item = item;
+        orderedItem.orderId = orderId;
+        orderedItem.user = this.loginService.getLoggedInUser();
         var url = this.addItemToOrderUrl + "/" + orderId;
         return this.authHttp
             .post(url, JSON.stringify(orderedItem))
@@ -95,7 +104,7 @@ var OrderService = (function () {
     };
     OrderService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp])
+        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp, login_service_1.LoginService])
     ], OrderService);
     return OrderService;
 }());
