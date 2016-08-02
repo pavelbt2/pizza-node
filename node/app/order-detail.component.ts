@@ -5,6 +5,7 @@ import { OrderService } from './order.service';
 import { LoginService } from './login.service';
 
 
+
 @Component({
 	selector: 's-order-detail',
 	templateUrl: 'app/order-detail.component.html',
