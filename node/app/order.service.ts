@@ -77,17 +77,6 @@ export class OrderService {
              .catch(this.handleError);
 	}
 	
-	// Update existing order
-	private updateOrder(order: Order) {
-		let url = `${this.orderUpdateUrl}/${order.id}`;
-
-		return this.authHttp
-             .post(url, JSON.stringify(order))
-             .toPromise()
-             .then(() => order)
-             .catch(this.handleError);
-	}	
-	
 	public addItemToOrder(orderId: number, item : Item,
     	count : number, details : string ) {
 

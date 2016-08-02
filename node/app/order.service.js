@@ -71,15 +71,6 @@ var OrderService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    // Update existing order
-    OrderService.prototype.updateOrder = function (order) {
-        var url = this.orderUpdateUrl + "/" + order.id;
-        return this.authHttp
-            .post(url, JSON.stringify(order))
-            .toPromise()
-            .then(function () { return order; })
-            .catch(this.handleError);
-    };
     OrderService.prototype.addItemToOrder = function (orderId, item, count, details) {
         var orderedItem = new ordered_item_1.OrderedItem();
         orderedItem.count = count;
