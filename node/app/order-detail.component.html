@@ -21,6 +21,6 @@
 	</div>
 	
 	<button (click)="goBack()">Back</button>
-	<button (click)="gotoAddItem()">Add Item</button>
+	<button *ngIf="canAddItem()" (click)="gotoAddItem()">Add Item</button>
 	<button *ngIf="canSubmit()" (click)="submitOrder()">Submit</button>
 </div>

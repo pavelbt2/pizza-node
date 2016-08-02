@@ -62,6 +62,13 @@ var OrderDetailComponent = (function () {
         }
         return true;
     };
+    // returns true iif this user can add an item 
+    OrderDetailComponent.prototype.canAddItem = function () {
+        if ((this.order.status.id == "OPEN")) {
+            return true;
+        }
+        return false;
+    };
     OrderDetailComponent.prototype.gotoAddItem = function () {
         this.router.navigate(['ItemSelection', { orderId: this.order.id }]);
     };

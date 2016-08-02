@@ -77,6 +77,14 @@ export class OrderDetailComponent implements OnInit {
 		return true;
 	}
 	
+	// returns true iif this user can add an item 
+	canAddItem() : boolean {
+		if ((this.order.status.id == "OPEN")) {
+			return true;
+		}		
+		return false;
+	}
+	
 	gotoAddItem() {
 		this.router.navigate(['ItemSelection', { orderId: this.order.id }])
 	}
