@@ -12,21 +12,7 @@ import { ItemDetailsSelectionComponent } from './item-details-selection.componen
 
 @Component({
 	selector: 's-pizza-app',
-	template: `
-		<div>
-			<h1>{{title}}</h1>
-		</div>
-		<div *ngIf="loginService.isLoggedIn()">			
-			<h2>Welcome {{loginService.getLoggedInUser()}} !!!</h2>
-			<button (click)="logout()">Logout</button>
-		</div>			
-		<nav>
-			<a [routerLink]="['CurrentOrder']">Current Order</a>
-			<a [routerLink]="['Dashboard']">Dashboard</a>
-			<a [routerLink]="['Orders']">Orders</a>			
-		<nav>
-		<router-outlet>
-	`,
+	templateUrl: 'app/app.component.html',
 	directives: [ROUTER_DIRECTIVES],
 	providers: [
 		ROUTER_PROVIDERS,

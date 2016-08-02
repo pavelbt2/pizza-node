@@ -35,7 +35,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 's-pizza-app',
-            template: "\n\t\t<div>\n\t\t\t<h1>{{title}}</h1>\n\t\t</div>\n\t\t<div *ngIf=\"loginService.isLoggedIn()\">\t\t\t\n\t\t\t<h2>Welcome {{loginService.getLoggedInUser()}} !!!</h2>\n\t\t\t<button (click)=\"logout()\">Logout</button>\n\t\t</div>\t\t\t\n\t\t<nav>\n\t\t\t<a [routerLink]=\"['CurrentOrder']\">Current Order</a>\n\t\t\t<a [routerLink]=\"['Dashboard']\">Dashboard</a>\n\t\t\t<a [routerLink]=\"['Orders']\">Orders</a>\t\t\t\n\t\t<nav>\n\t\t<router-outlet>\n\t",
+            templateUrl: 'app/app.component.html',
             directives: [router_deprecated_1.ROUTER_DIRECTIVES],
             providers: [
                 router_deprecated_1.ROUTER_PROVIDERS,
