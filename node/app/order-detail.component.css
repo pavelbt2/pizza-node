@@ -43,11 +43,18 @@ table {
 }
 
 td, th {
-    border: 1px solid #dddddd;
+    border: 1px solid steelblue;
     text-align: left;
     padding: 8px;
+    /*background-color: azure*/;
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: lightcyan;
+    opacity: 0.8;
+}
+
+tr:nth-child(odd) {
+    background-color: lightsteelblue;    
+    opacity: 0.8;
 }
