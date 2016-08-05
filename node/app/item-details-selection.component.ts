@@ -40,7 +40,7 @@ export class ItemDetailsSelectionComponent implements OnInit {
 		return;        
     }
     
-    placeOrder() {        
+    addToOrder() {        
 		this.orderService
 			.addItemToOrder(this.orderId, this.item, this.count, this.details)
 			.then(() => {

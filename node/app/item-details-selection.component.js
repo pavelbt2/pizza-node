@@ -29,7 +29,7 @@ var ItemDetailsSelectionComponent = (function () {
         });
         return;
     };
-    ItemDetailsSelectionComponent.prototype.placeOrder = function () {
+    ItemDetailsSelectionComponent.prototype.addToOrder = function () {
         var _this = this;
         this.orderService
             .addItemToOrder(this.orderId, this.item, this.count, this.details)
