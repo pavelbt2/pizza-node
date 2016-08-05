@@ -1,24 +1,38 @@
 /* Master Styles */
+h1 {
+  font-size: 1.5em;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 0;
+}
 h2 { 
-  color: #444;
+  /*color: #444;*/
+  font-size: 3em;
   font-family: Arial, Helvetica, sans-serif;   
-  font-weight: lighter;
+  font-weight: bold;
+  margin-bottom: 20;
 }
 body { 
   margin: 2em; 
+  
+  background-image: url("image/pizza4.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  
 }
 body, input[text], button { 
-  color: #888; 
+  /*color: #888;*/ 
+  color: darkblue;
   font-family: Cambria, Georgia; 
 }
 button {
   font-family: Arial;
-  background-color: #eee;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
   cursor: hand;
+  
+  background-color: darkcyan;
 }
 button:hover {
   background-color: #cfd8dc;
@@ -29,6 +43,7 @@ button:disabled {
   cursor: auto;
 }
 /* everywhere else */
-* { 
-  font-family: Arial, Helvetica, sans-serif; 
+* {
+  
+  font-family: Arial, Helvetica, sans-serif;
 }

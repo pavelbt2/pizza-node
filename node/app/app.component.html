@@ -1,0 +1,14 @@
+		<div>
+            <h2>{{title}}</h2>
+			<div *ngIf="loginService.isLoggedIn()">
+                <label><mybig>Welcome {{loginService.getLoggedInUser()}} !!!</mybig></label>
+				<button (click)="logout()">Logout</button>
+			<div>
+		</div>
+
+		<nav>
+			<a [routerLink]="['CurrentOrder']">Current Order</a>
+			<a [routerLink]="['Dashboard']">Dashboard</a>
+			<a [routerLink]="['Orders']">Orders</a>			
+		<nav>
+		<router-outlet>
