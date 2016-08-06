@@ -23,8 +23,8 @@ var OrderService = (function () {
         this.loginUrl = 'http://localhost:8080/Pizza/login';
         this.allOrdersGetUrl = 'http://localhost:8080/Pizza/api/order/fetchall';
         this.orderGetUrl = 'http://localhost:8080/Pizza/api/order/get'; // URL to web api TODO	
-        this.orderUpdateUrl = 'http://localhost:8080/Pizza/api/order/update';
         this.orderCreateUrl = 'http://localhost:8080/Pizza/api/order/create';
+        this.orderSubmitUrl = 'http://localhost:8080/Pizza/api/order/submit';
         this.itemListUrl = 'http://localhost:8080/Pizza/api/item/fetchall';
         this.addItemToOrderUrl = 'http://localhost:8080/Pizza/api/order/additem';
     }
@@ -65,6 +65,15 @@ var OrderService = (function () {
     // Create a new order
     OrderService.prototype.createNewOrder = function () {
         var url = "" + this.orderCreateUrl;
+        return this.authHttp
+            .post(url, null)
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    OrderService.prototype.submitOrder = function (id) {
+        console.info("submitOrder(): id=" + id);
+        var url = this.orderSubmitUrl + "/" + id;
         return this.authHttp
             .post(url, null)
             .toPromise()

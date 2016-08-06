@@ -52,6 +52,7 @@ export class LoginService {
 	}
 	
 	public isLoggedIn() : boolean {
+		//console.info("isLoggedin="+this.isLoggedin);
 		return this.isLoggedin;
 	}
 	

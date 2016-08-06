@@ -15,8 +15,8 @@ export class OrderService {
 	private loginUrl = 'http://localhost:8080/Pizza/login';
 	private allOrdersGetUrl = 'http://localhost:8080/Pizza/api/order/fetchall';
 	private orderGetUrl = 'http://localhost:8080/Pizza/api/order/get';  // URL to web api TODO	
-	private orderUpdateUrl = 'http://localhost:8080/Pizza/api/order/update';
 	private orderCreateUrl = 'http://localhost:8080/Pizza/api/order/create';
+	private orderSubmitUrl = 'http://localhost:8080/Pizza/api/order/submit';
 	private itemListUrl = 'http://localhost:8080/Pizza/api/item/fetchall';
 	private addItemToOrderUrl = 'http://localhost:8080/Pizza/api/order/additem';
 
@@ -37,7 +37,7 @@ export class OrderService {
 		return this.itemList;
 	}
 	
-	getOrders(): Promise<Order[]> {
+	public getOrders(): Promise<Order[]> {
 		console.info("getOrders(): jwt="+localStorage.getItem('jwt'));
 		return this.authHttp.get(this.allOrdersGetUrl) // returns Observable
 			.toPromise()
@@ -45,7 +45,7 @@ export class OrderService {
 			.catch(this.handleError);		
 	}
 	
-	getOrder(id: number) : Promise<Order> { // TODO is it OK to go to the server each time?
+	public getOrder(id: number) : Promise<Order> { // TODO is it OK to go to the server each time?
 		console.info("getOrder(): id=" + id);
 		let url = this.orderGetUrl;
 		if (id != null) {
@@ -62,12 +62,12 @@ export class OrderService {
 			.catch(this.handleError);	
 	}
 	
-	getCurrentOrder() {
+	public getCurrentOrder() {
 		return this.getOrder(null);	
 	}
 
 	// Create a new order
-	createNewOrder(): Promise<Order>  {
+	public createNewOrder(): Promise<Order>  {		
 		let url = `${this.orderCreateUrl}`;
 
 		return this.authHttp
@@ -76,6 +76,18 @@ export class OrderService {
              .then(response => response.json())
              .catch(this.handleError);
 	}
+	
+	
+	public submitOrder(id: number): Promise<Order>  {
+		console.info("submitOrder(): id=" + id);
+		let url = `${this.orderSubmitUrl}/${id}`;
+
+		return this.authHttp
+             .post(url, null)
+             .toPromise()
+             .then(response => response.json())
+             .catch(this.handleError);
+	}		
 	
 	public addItemToOrder(orderId: number, item : Item,
     	count : number, details : string ) {

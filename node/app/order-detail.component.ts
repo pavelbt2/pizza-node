@@ -53,17 +53,14 @@ export class OrderDetailComponent implements OnInit {
 
 	}
 	
-	submitOrder() {
-		console.info("TODO");
-				
-		// this.orderService
-		// 	.saveOrder(this.order)
-		// 	.then(order => {				
-		// 		this.order = order; // saved order, w/o id if new
-		// 		console.info("saved order: id=" + order.id);
-		// 		this.goBack(order);
-		// 	})
-		// 	.catch(error => this.error = error); // TODO: Display error message
+	submitOrder() {				
+		this.orderService
+			.submitOrder(this.order.id)
+			.then(order => {
+				this.order = order; // updated order
+				console.info("submitted order: id=" + order.id);
+			})
+			.catch(error => this.error = error); // TODO: Display error message
 	}
 	
 	// returns true iif this user can submit the order

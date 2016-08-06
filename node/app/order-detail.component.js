@@ -44,15 +44,14 @@ var OrderDetailComponent = (function () {
         });
     };
     OrderDetailComponent.prototype.submitOrder = function () {
-        console.info("TODO");
-        // this.orderService
-        // 	.saveOrder(this.order)
-        // 	.then(order => {				
-        // 		this.order = order; // saved order, w/o id if new
-        // 		console.info("saved order: id=" + order.id);
-        // 		this.goBack(order);
-        // 	})
-        // 	.catch(error => this.error = error); // TODO: Display error message
+        var _this = this;
+        this.orderService
+            .submitOrder(this.order.id)
+            .then(function (order) {
+            _this.order = order; // updated order
+            console.info("submitted order: id=" + order.id);
+        })
+            .catch(function (error) { return _this.error = error; }); // TODO: Display error message
     };
     // returns true iif this user can submit the order
     OrderDetailComponent.prototype.canSubmit = function () {

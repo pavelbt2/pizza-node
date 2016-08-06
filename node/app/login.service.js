@@ -52,6 +52,7 @@ var LoginService = (function () {
         this.user = null;
     };
     LoginService.prototype.isLoggedIn = function () {
+        //console.info("isLoggedin="+this.isLoggedin);
         return this.isLoggedin;
     };
     LoginService.prototype.getLoggedInUser = function () {
