@@ -11,12 +11,21 @@ h2 {
   font-weight: bold;
   margin-bottom: 20;
 }
+mybig {
+  font-size: 1.5em;
+  margin-right: 10;
+}
+myverybig {
+  font-size: 2.5em;
+  margin-right: 10;
+}
 body { 
   margin: 2em; 
   
   background-image: url("image/pizza4.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  /*opacity: 0.2;*/
   
 }
 body, input[text], button { 
@@ -35,7 +44,7 @@ button {
   background-color: darkcyan;
 }
 button:hover {
-  background-color: #cfd8dc;
+  background-color: cyan;
 }
 button:disabled {
   background-color: #eee;
