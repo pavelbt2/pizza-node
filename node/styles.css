@@ -34,13 +34,15 @@ body, input[text], button {
   font-family: Cambria, Georgia; 
 }
 button {
-  font-family: Arial;
+  font-size: 1.2em;
+  /*font-family: Arial;*/
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
   cursor: hand;
   
+  opacity: 0.8;
   background-color: darkcyan;
 }
 button:hover {

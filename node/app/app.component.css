@@ -4,13 +4,13 @@ nav a {
   text-decoration: none;
   margin: 7px;
   display: inline-block;
-  background-color: violet;
-  border-radius: 5px;
-  
+  background-color: wheat;
+  opacity: 0.8;
+  border-radius: 5px;  
   font-size: 2em;
 }
 nav a:visited, a:link {
-  color: #607D8B;
+  color: darkblue;
 }
 nav a:hover {
   color: #039be5;
