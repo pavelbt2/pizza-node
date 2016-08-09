@@ -85,7 +85,6 @@ var OrderService = (function () {
         orderedItem.count = count;
         orderedItem.details = details;
         orderedItem.item = item;
-        orderedItem.orderId = orderId;
         orderedItem.user = this.loginService.getLoggedInUser();
         var url = this.addItemToOrderUrl + "/" + orderId;
         return this.authHttp

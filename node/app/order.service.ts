@@ -96,7 +96,6 @@ export class OrderService {
         orderedItem.count = count;
         orderedItem.details = details;
         orderedItem.item = item;
-        orderedItem.orderId = orderId;
 		orderedItem.user = this.loginService.getLoggedInUser();
 
 		let url = `${this.addItemToOrderUrl}/${orderId}`;
