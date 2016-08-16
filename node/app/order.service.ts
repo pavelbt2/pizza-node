@@ -14,7 +14,8 @@ export class OrderService {
 
 	private loginUrl = 'http://localhost:8080/Pizza/login';
 	private allOrdersGetUrl = 'http://localhost:8080/Pizza/api/order/fetchall';
-	private orderGetUrl = 'http://localhost:8080/Pizza/api/order/get';  // URL to web api TODO	
+	private orderGetUrl = 'http://localhost:8080/Pizza/api/order/get';
+	private orderGetCurrentUrl = 'http://localhost:8080/Pizza/api/order/getcurrent';	
 	private orderCreateUrl = 'http://localhost:8080/Pizza/api/order/create';
 	private orderSubmitUrl = 'http://localhost:8080/Pizza/api/order/submit';
 	private itemListUrl = 'http://localhost:8080/Pizza/api/item/fetchall';
@@ -47,10 +48,10 @@ export class OrderService {
 	
 	public getOrder(id: number) : Promise<Order> { // TODO is it OK to go to the server each time?
 		console.info("getOrder(): id=" + id);
-		let url = this.orderGetUrl;
+		let url = `${this.orderGetCurrentUrl}`;
 		if (id != null) {
-			url = `${this.orderGetUrl}/${id}`;	
-		}		
+			let url = `${this.orderGetUrl}/${id}`;
+		}
 		
 		return this.authHttp.get(url) // returns Observable
 			.toPromise()

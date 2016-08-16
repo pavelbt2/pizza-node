@@ -22,7 +22,8 @@ var OrderService = (function () {
         this.loginService = loginService;
         this.loginUrl = 'http://localhost:8080/Pizza/login';
         this.allOrdersGetUrl = 'http://localhost:8080/Pizza/api/order/fetchall';
-        this.orderGetUrl = 'http://localhost:8080/Pizza/api/order/get'; // URL to web api TODO	
+        this.orderGetUrl = 'http://localhost:8080/Pizza/api/order/get';
+        this.orderGetCurrentUrl = 'http://localhost:8080/Pizza/api/order/getcurrent';
         this.orderCreateUrl = 'http://localhost:8080/Pizza/api/order/create';
         this.orderSubmitUrl = 'http://localhost:8080/Pizza/api/order/submit';
         this.itemListUrl = 'http://localhost:8080/Pizza/api/item/fetchall';
@@ -47,9 +48,9 @@ var OrderService = (function () {
     };
     OrderService.prototype.getOrder = function (id) {
         console.info("getOrder(): id=" + id);
-        var url = this.orderGetUrl;
+        var url = "" + this.orderGetCurrentUrl;
         if (id != null) {
-            url = this.orderGetUrl + "/" + id;
+            var url_1 = this.orderGetUrl + "/" + id;
         }
         return this.authHttp.get(url) // returns Observable
             .toPromise()
