@@ -50,7 +50,7 @@ var OrderService = (function () {
         console.info("getOrder(): id=" + id);
         var url = "" + this.orderGetCurrentUrl;
         if (id != null) {
-            var url_1 = this.orderGetUrl + "/" + id;
+            url = this.orderGetUrl + "/" + id;
         }
         return this.authHttp.get(url) // returns Observable
             .toPromise()

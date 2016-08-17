@@ -1,4 +1,9 @@
 <div *ngIf="order">
+	
+	<div *ngIf="error">
+			kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+	</div>
+	
 	<mybig>Order:</mybig><myverybig>{{order.date}}</myverybig>
 	<mybig>responsible:</mybig><myverybig>{{order.responsible}}</myverybig>
 	<mybig>status:</mybig><myverybig>{{order.status.pretty}}</myverybig>	

@@ -50,7 +50,7 @@ export class OrderService {
 		console.info("getOrder(): id=" + id);
 		let url = `${this.orderGetCurrentUrl}`;
 		if (id != null) {
-			let url = `${this.orderGetUrl}/${id}`;
+			url = `${this.orderGetUrl}/${id}`;
 		}
 		
 		return this.authHttp.get(url) // returns Observable
@@ -105,7 +105,6 @@ export class OrderService {
              .post(url, JSON.stringify(orderedItem))
              .toPromise()
              //.then(() => ???)
-			 // TODO return updated order
              .catch(this.handleError);		
 	}
 			

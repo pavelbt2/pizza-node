@@ -23,10 +23,10 @@ export class OrderDetailComponent implements OnInit {
 	navigated = false; // true if navigated here
 	
 	constructor(private router: Router, private routeParams: RouteParams, 
-		private orderService: OrderService, private loginService: LoginService) {
+		private orderService: OrderService, private loginService: LoginService) {			
 	}
 
-	ngOnInit() {
+	ngOnInit() {				
 		if (this.routeParams.get('id') !== null) {
 			let id = +this.routeParams.get('id'); // the "+" is to convert the id from string to a number
 			this.navigated = true;
