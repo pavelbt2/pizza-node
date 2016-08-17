@@ -55,7 +55,6 @@ var OrderService = (function () {
         return this.authHttp.get(url) // returns Observable
             .toPromise()
             .then(function (response) {
-            console.info("got response " + response);
             return response.json();
         })
             .catch(this.handleError);
@@ -78,7 +77,9 @@ var OrderService = (function () {
         return this.authHttp
             .post(url, null)
             .toPromise()
-            .then(function (response) { return response.json(); })
+            .then(function (response) {
+            return response.json();
+        })
             .catch(this.handleError);
     };
     OrderService.prototype.addItemToOrder = function (orderId, item, count, details) {
@@ -94,9 +95,12 @@ var OrderService = (function () {
             .catch(this.handleError);
     };
     OrderService.prototype.handleError = function (error) {
-        console.error('An error occurred :(((', error);
-        return Promise.reject(error.message || error);
-        // TODO better handling?
+        //console.error('An error occurred :((( status=', error.status+" message="+error.message);
+        var reason = "server error";
+        if (error.status == "403") {
+            reason = 'Forbidden';
+        }
+        return Promise.reject(reason);
     };
     OrderService = __decorate([
         core_1.Injectable(), 

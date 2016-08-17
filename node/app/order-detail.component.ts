@@ -1,10 +1,8 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, forwardRef, provide} from '@angular/core';
 import { Router, RouteParams } from '@angular/router-deprecated';
 import { Order } from './order';
 import { OrderService } from './order.service';
 import { LoginService } from './login.service';
-
-
 
 @Component({
 	selector: 's-order-detail',
@@ -19,11 +17,13 @@ export class OrderDetailComponent implements OnInit {
 	@Output() 
 	close = new EventEmitter();
 	
-	error: any;
 	navigated = false; // true if navigated here
+	private error : string;
 	
 	constructor(private router: Router, private routeParams: RouteParams, 
-		private orderService: OrderService, private loginService: LoginService) {			
+		private orderService: OrderService, 
+		private loginService: LoginService) {
+			this.error = null;			
 	}
 
 	ngOnInit() {				
@@ -60,7 +60,10 @@ export class OrderDetailComponent implements OnInit {
 				this.order = order; // updated order
 				console.info("submitted order: id=" + order.id);
 			})
-			.catch(error => this.error = error); // TODO: Display error message
+			.catch(error => {					
+					this.error = error;
+				}
+			);
 	}
 	
 	// returns true iif this user can submit the order
@@ -91,6 +94,10 @@ export class OrderDetailComponent implements OnInit {
 		if (this.navigated) {
 			window.history.back();	// TODO add guarging not to get out of the app
 		}
+	}
+	
+	private getError() : string {
+		return this.error;
 	}
 		
 }

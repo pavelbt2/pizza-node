@@ -56,7 +56,6 @@ export class OrderService {
 		return this.authHttp.get(url) // returns Observable
 			.toPromise()
 			.then(response => {
-				console.info("got response " + response);
 				return response.json()
 				}
 			)
@@ -86,7 +85,9 @@ export class OrderService {
 		return this.authHttp
              .post(url, null)
              .toPromise()
-             .then(response => response.json())
+             .then(response => 	 
+					 response.json()
+			 )
              .catch(this.handleError);
 	}		
 	
@@ -108,10 +109,13 @@ export class OrderService {
              .catch(this.handleError);		
 	}
 			
-	private handleError(error: any) {
-		console.error('An error occurred :(((', error);
-		return Promise.reject(error.message || error);
-		// TODO better handling?
+	private handleError(error: any) {						
+		//console.error('An error occurred :((( status=', error.status+" message="+error.message);
+		let reason = "server error";
+		if (error.status == "403") {
+			reason = 'Forbidden';
+		}
+		return Promise.reject(reason);
 	}
 	
 }

@@ -1,12 +1,16 @@
 <div *ngIf="order">
 	
-	<div *ngIf="error">
-			kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+	<div *ngIf="getError()">
+		<error>
+			ERROR: {{getError()}}
+		</error>
 	</div>
-	
-	<mybig>Order:</mybig><myverybig>{{order.date}}</myverybig>
-	<mybig>responsible:</mybig><myverybig>{{order.responsible}}</myverybig>
-	<mybig>status:</mybig><myverybig>{{order.status.pretty}}</myverybig>	
+		
+	<div>
+		<mybig>Order:</mybig><myverybig>{{order.date}}</myverybig>
+		<mybig>responsible:</mybig><myverybig>{{order.responsible}}</myverybig>
+		<mybig>status:</mybig><myverybig>{{order.status.pretty}}</myverybig>
+	</div>	
 	<div>
 		<mybig>Order items:</mybig>
 		<table>

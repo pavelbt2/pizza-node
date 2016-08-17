@@ -21,6 +21,7 @@ var OrderDetailComponent = (function () {
         this.loginService = loginService;
         this.close = new core_1.EventEmitter();
         this.navigated = false; // true if navigated here
+        this.error = null;
     }
     OrderDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -51,7 +52,9 @@ var OrderDetailComponent = (function () {
             _this.order = order; // updated order
             console.info("submitted order: id=" + order.id);
         })
-            .catch(function (error) { return _this.error = error; }); // TODO: Display error message
+            .catch(function (error) {
+            _this.error = error;
+        });
     };
     // returns true iif this user can submit the order
     OrderDetailComponent.prototype.canSubmit = function () {
@@ -77,6 +80,9 @@ var OrderDetailComponent = (function () {
         if (this.navigated) {
             window.history.back(); // TODO add guarging not to get out of the app
         }
+    };
+    OrderDetailComponent.prototype.getError = function () {
+        return this.error;
     };
     __decorate([
         core_1.Input(), 

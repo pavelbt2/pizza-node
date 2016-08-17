@@ -14,10 +14,22 @@ h2 {
 mybig {
   font-size: 1.5em;
   margin-right: 10;
+  padding: 0.2em;
 }
 myverybig {
   font-size: 2.5em;
   margin-right: 10;
+  padding: 0.2em;
+}
+error {
+  width:100%;
+  color: darkred;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 0.2em;
+  background-color: greenyellow;
+  opacity: 0.8;
+  border: 2px solid darkred
 }
 body { 
   margin: 2em; 
