@@ -18,9 +18,10 @@ export class ItemDetailsSelectionComponent implements OnInit {
     count : number;
     details : string;
     
-    error: any;
+    private error : string;
     
     constructor(private router: Router, private orderService: OrderService, private routeParams: RouteParams) {
+        this.error = null;
 	}
     
     ngOnInit() {
@@ -46,12 +47,22 @@ export class ItemDetailsSelectionComponent implements OnInit {
 			.then(() => {
                 this.router.navigate(['OrderDetail', { id: this.orderId }]);                
 			})
-			.catch(error => this.error = error); // TODO: Display error message
+			.catch(error => {
+                    if (error == "Conflict") {
+                        error = "You've already ordered " + this.item.pretty + "!!!";
+                    }                					
+					this.error = error;
+				}
+			);
             
     }
     
     goBack() {
 		window.history.back();
+	}
+    
+	private getError() : string {
+		return this.error;
 	}    
 
 }

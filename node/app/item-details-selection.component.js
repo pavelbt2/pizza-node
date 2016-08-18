@@ -16,6 +16,7 @@ var ItemDetailsSelectionComponent = (function () {
         this.router = router;
         this.orderService = orderService;
         this.routeParams = routeParams;
+        this.error = null;
     }
     ItemDetailsSelectionComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -36,10 +37,18 @@ var ItemDetailsSelectionComponent = (function () {
             .then(function () {
             _this.router.navigate(['OrderDetail', { id: _this.orderId }]);
         })
-            .catch(function (error) { return _this.error = error; }); // TODO: Display error message
+            .catch(function (error) {
+            if (error == "Conflict") {
+                error = "You've already ordered " + _this.item.pretty + "!!!";
+            }
+            _this.error = error;
+        });
     };
     ItemDetailsSelectionComponent.prototype.goBack = function () {
         window.history.back();
+    };
+    ItemDetailsSelectionComponent.prototype.getError = function () {
+        return this.error;
     };
     ItemDetailsSelectionComponent = __decorate([
         core_1.Component({

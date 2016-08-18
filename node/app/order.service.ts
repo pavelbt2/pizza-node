@@ -119,6 +119,9 @@ export class OrderService {
 			case 403:
 				reason = 'Forbidden';
 				break;			
+			case 409:
+				reason = 'Conflict';
+				break;				
 		}
 		
 		return Promise.reject(reason);
