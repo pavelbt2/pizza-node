@@ -17,15 +17,14 @@ export class NewOrderComponent implements OnInit {
 	close = new EventEmitter();
 
 	order: Order;	
-	error: any;
+	private error : string;
 	
 	constructor(private router: Router, private orderService: OrderService, private loginService:LoginService, private routeParams: RouteParams) {
+		this.error = null;
 	}
 
-	ngOnInit() {
-		
-	}
-	
+	ngOnInit() {		
+	}	
 
 	createNewOrder() {
 		this.orderService.createNewOrder()
@@ -34,7 +33,17 @@ export class NewOrderComponent implements OnInit {
 				console.info("created new order. id="+order.id);
 						this.router.navigate(['OrderDetail', { id: order.id }]);
 			})
-			.catch(error => this.error = error); // TODO: Display error message
+			.catch(error => {
+					if (error == "Conflict") {
+						error = "Someone already started it..";
+					}
+					this.error = error;
+				}
+			);			
 	}
-		
+
+	private getError() : string {
+		return this.error;
+	}
+			
 }

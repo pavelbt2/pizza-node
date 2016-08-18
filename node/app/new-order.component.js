@@ -19,6 +19,7 @@ var NewOrderComponent = (function () {
         this.loginService = loginService;
         this.routeParams = routeParams;
         this.close = new core_1.EventEmitter();
+        this.error = null;
     }
     NewOrderComponent.prototype.ngOnInit = function () {
     };
@@ -30,7 +31,15 @@ var NewOrderComponent = (function () {
             console.info("created new order. id=" + order.id);
             _this.router.navigate(['OrderDetail', { id: order.id }]);
         })
-            .catch(function (error) { return _this.error = error; }); // TODO: Display error message
+            .catch(function (error) {
+            if (error == "Conflict") {
+                error = "Someone already started it..";
+            }
+            _this.error = error;
+        });
+    };
+    NewOrderComponent.prototype.getError = function () {
+        return this.error;
     };
     __decorate([
         core_1.Output(), 
