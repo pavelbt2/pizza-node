@@ -59,9 +59,14 @@ var LoginService = (function () {
         return this.user;
     };
     LoginService.prototype.handleError = function (error) {
-        console.error('An error occurred during login :(((', error);
-        return Promise.reject(error.message || error);
-        // TODO better handling?
+        //console.error('An error occurred :((( status=', error.status+" message="+error.message);
+        var reason = "server error";
+        switch (error.status) {
+            case 401:
+                reason = 'Unauthorised';
+                break;
+        }
+        return Promise.reject(reason);
     };
     LoginService = __decorate([
         core_1.Injectable(), 

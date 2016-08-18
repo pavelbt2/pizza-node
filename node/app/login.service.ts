@@ -61,10 +61,16 @@ export class LoginService {
 	}
 			
             
-	private handleError(error: any) {
-		console.error('An error occurred during login :(((', error);
-		return Promise.reject(error.message || error);
-		// TODO better handling?
-	}            
+	private handleError(error: any) {						
+		//console.error('An error occurred :((( status=', error.status+" message="+error.message);
+		let reason = "server error";
+		switch (error.status) {
+			case 401:
+				reason = 'Unauthorised';
+				break;		
+		}
+		
+		return Promise.reject(reason);
+	}          
 }
 

@@ -1,4 +1,9 @@
 <div>
+	<div *ngIf="getError()">
+		<error>
+			ERROR: {{getError()}}
+		</error>
+	</div>    
 	<h2>Welcome</h2>
     <div>
         <label>User: </label>

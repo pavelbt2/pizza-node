@@ -112,9 +112,15 @@ export class OrderService {
 	private handleError(error: any) {						
 		//console.error('An error occurred :((( status=', error.status+" message="+error.message);
 		let reason = "server error";
-		if (error.status == "403") {
-			reason = 'Forbidden';
+		switch (error.status) {
+			case 401:
+				reason = 'Unauthorised';
+				break;
+			case 403:
+				reason = 'Forbidden';
+				break;			
 		}
+		
 		return Promise.reject(reason);
 	}
 	

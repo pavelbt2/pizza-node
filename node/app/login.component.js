@@ -18,14 +18,13 @@ var LoginComponent = (function () {
         this.loginService = loginService;
         this.routeParams = routeParams;
         this.close = new core_1.EventEmitter();
+        this.error = null;
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.auth = new auth_1.JwtAuthenticationRequest();
     };
     LoginComponent.prototype.login = function () {
         var _this = this;
-        // TODO check that not user+password empty
-        console.info("trying to login: user = " + this.auth.username + " password = " + this.auth.password);
         this.loginService
             .login(this.auth)
             .then(function (res) {
@@ -35,9 +34,10 @@ var LoginComponent = (function () {
         }) // must use then - otherwise won't wait for jwt
             .catch(function (error) {
             _this.error = error;
-            console.info("login error.");
-            // TODO: Display error message
         });
+    };
+    LoginComponent.prototype.getError = function () {
+        return this.error;
     };
     __decorate([
         core_1.Output(), 
