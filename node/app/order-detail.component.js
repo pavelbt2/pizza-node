@@ -50,7 +50,7 @@ var OrderDetailComponent = (function () {
             .submitOrder(this.order.id)
             .then(function (order) {
             _this.order = order; // updated order
-            console.info("submitted order: id=" + order.id);
+            console.info("submitted order: id=" + _this.order.id);
         })
             .catch(function (error) {
             _this.error = error;

@@ -58,7 +58,7 @@ export class OrderDetailComponent implements OnInit {
 			.submitOrder(this.order.id)
 			.then(order => {
 				this.order = order; // updated order
-				console.info("submitted order: id=" + order.id);
+				console.info("submitted order: id=" + this.order.id);
 			})
 			.catch(error => {					
 					this.error = error;
