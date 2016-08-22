@@ -8,4 +8,5 @@ export class Order {
 	status: OrderStatus;
 	valid: boolean;
 	items: OrderedItem[] = [];
+	slices: OrderedItem[] = [];
 }

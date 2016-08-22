@@ -12,6 +12,21 @@
 		<mybig>status:</mybig><myverybig>{{order.status.pretty}}</myverybig>
 	</div>	
 	<div>
+		<mybig>Order slices:</mybig>
+		<table>
+			<tr>
+				<th>Count</th>
+				<th>Details</th>    		
+				<th>User</th>
+			</tr>
+			<tr *ngFor="let orderedSlice of order.slices" >			
+				<td>{{orderedSlice.count}}</td>
+				<td>{{orderedSlice.details}}</td>
+				<td>{{orderedSlice.user}}</td>
+			</tr> 
+		</table>	
+	</div>	
+	<div>
 		<mybig>Order items:</mybig>
 		<table>
 			<tr>

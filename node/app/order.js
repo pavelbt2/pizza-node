@@ -2,6 +2,7 @@
 var Order = (function () {
     function Order() {
         this.items = [];
+        this.slices = [];
     }
     return Order;
 }());

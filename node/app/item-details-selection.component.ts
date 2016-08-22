@@ -2,7 +2,6 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Router, RouteParams } from '@angular/router-deprecated';
 import { OrderService } from './order.service';
 import { Item } from './item';
-import { OrderedItem } from './ordered-item';
 
 @Component({
 	selector: 's-item-selection',
