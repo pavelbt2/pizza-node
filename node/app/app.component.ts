@@ -27,12 +27,13 @@ import { ItemDetailsSelectionComponent } from './item-details-selection.componen
 		path: '/login/',
 		name: 'Login',
 		component: LoginComponent,
-		useAsDefault: true // this is the default route (for '/')
+		
 	},
 	{
 		path: '/detail/',
 		name: 'CurrentOrder',
 		component: OrderDetailComponent,
+		useAsDefault: true // this is the default route (for '/')
 	},
 	{
 		path: '/detail/:id',

@@ -49,12 +49,12 @@ var AppComponent = (function () {
                 path: '/login/',
                 name: 'Login',
                 component: login_component_1.LoginComponent,
-                useAsDefault: true // this is the default route (for '/')
             },
             {
                 path: '/detail/',
                 name: 'CurrentOrder',
                 component: order_detail_component_1.OrderDetailComponent,
+                useAsDefault: true // this is the default route (for '/')
             },
             {
                 path: '/detail/:id',

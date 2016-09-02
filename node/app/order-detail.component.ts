@@ -27,6 +27,7 @@ export class OrderDetailComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		
 		if (!this.loginService.isLoggedIn()) {
 			console.info("not logged in - redirecting to login page");
 			this.router.navigate(['Login']);
