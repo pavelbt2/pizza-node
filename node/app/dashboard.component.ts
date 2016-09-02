@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router-deprecated';
 import { Order } from './order';
 import { OrderService } from './order.service';
-
+import { LoginService } from './login.service';
 
 @Component({
 	selector: 's-dashboard',
@@ -17,9 +17,17 @@ export class DashboardComponent
  {
 	orders: Order[] = [];
 	
-	constructor(private router: Router, private orderService: OrderService) { }
+	constructor(private router: Router, private orderService: OrderService,
+		private loginService: LoginService) { 		 
+	}
 	
-	ngOnInit() {
+	ngOnInit() {		
+		if (!this.loginService.isLoggedIn()) {
+			console.info("not logged in - redirecting to login page");
+			this.router.navigate(['Login']);
+			return;
+		}
+		
 		this.orderService.getOrders()
 		.then(orders => this.orders = orders.slice(0,4))
 		;

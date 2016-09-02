@@ -12,14 +12,21 @@ var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var order_service_1 = require('./order.service');
 var order_detail_component_1 = require('./order-detail.component');
+var login_service_1 = require('./login.service');
 var OrdersComponent = (function () {
     // the c'tor creates orderService property + Angular supplies an istance when AppComponent is created.
-    function OrdersComponent(router, orderService) {
+    function OrdersComponent(router, orderService, loginService) {
         this.router = router;
         this.orderService = orderService;
+        this.loginService = loginService;
         // Don't fetch the orders here! Not healthy...
     }
     OrdersComponent.prototype.ngOnInit = function () {
+        if (!this.loginService.isLoggedIn()) {
+            console.info("not logged in - redirecting to login page");
+            this.router.navigate(['Login']);
+            return;
+        }
         this.getOrders();
     };
     OrdersComponent.prototype.getOrders = function () {
@@ -44,7 +51,7 @@ var OrdersComponent = (function () {
             styleUrls: ['app/orders.component.css'],
             directives: [order_detail_component_1.OrderDetailComponent]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, order_service_1.OrderService])
+        __metadata('design:paramtypes', [router_deprecated_1.Router, order_service_1.OrderService, login_service_1.LoginService])
     ], OrdersComponent);
     return OrdersComponent;
 }());

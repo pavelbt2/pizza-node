@@ -25,6 +25,11 @@ var OrderDetailComponent = (function () {
     }
     OrderDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (!this.loginService.isLoggedIn()) {
+            console.info("not logged in - redirecting to login page");
+            this.router.navigate(['Login']);
+            return;
+        }
         if (this.routeParams.get('id') !== null) {
             var id = +this.routeParams.get('id'); // the "+" is to convert the id from string to a number
             this.navigated = true;

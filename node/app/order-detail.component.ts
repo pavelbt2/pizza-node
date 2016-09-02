@@ -26,7 +26,13 @@ export class OrderDetailComponent implements OnInit {
 			this.error = null;			
 	}
 
-	ngOnInit() {				
+	ngOnInit() {
+		if (!this.loginService.isLoggedIn()) {
+			console.info("not logged in - redirecting to login page");
+			this.router.navigate(['Login']);
+			return;
+		}
+		
 		if (this.routeParams.get('id') !== null) {
 			let id = +this.routeParams.get('id'); // the "+" is to convert the id from string to a number
 			this.navigated = true;

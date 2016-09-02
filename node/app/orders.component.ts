@@ -3,6 +3,7 @@ import { Router } from '@angular/router-deprecated';
 import { Order } from './order';
 import { OrderService } from './order.service';
 import { OrderDetailComponent } from './order-detail.component';
+import { LoginService } from './login.service';
 
 @Component({
 	selector: 's-orders',
@@ -18,11 +19,18 @@ export class OrdersComponent implements OnInit {
 	error: any;
 
 	// the c'tor creates orderService property + Angular supplies an istance when AppComponent is created.
-	constructor(private router: Router, private orderService: OrderService) {
+	constructor(private router: Router, private orderService: OrderService,
+		private loginService: LoginService) {
 		// Don't fetch the orders here! Not healthy...
 	}	
 
 	ngOnInit() {
+		if (!this.loginService.isLoggedIn()) {
+			console.info("not logged in - redirecting to login page");
+			this.router.navigate(['Login']);
+			return;
+		}
+		
 		this.getOrders();
 	}	
 	

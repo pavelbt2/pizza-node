@@ -59,6 +59,7 @@ export class LoginService {
 	public getLoggedInUser() : string {
 		return this.user;
 	}
+	
 			
             
 	private handleError(error: any) {						

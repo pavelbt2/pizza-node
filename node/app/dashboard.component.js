@@ -11,14 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var order_service_1 = require('./order.service');
+var login_service_1 = require('./login.service');
 var DashboardComponent = (function () {
-    function DashboardComponent(router, orderService) {
+    function DashboardComponent(router, orderService, loginService) {
         this.router = router;
         this.orderService = orderService;
+        this.loginService = loginService;
         this.orders = [];
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (!this.loginService.isLoggedIn()) {
+            console.info("not logged in - redirecting to login page");
+            this.router.navigate(['Login']);
+            return;
+        }
         this.orderService.getOrders()
             .then(function (orders) { return _this.orders = orders.slice(0, 4); });
     };
@@ -33,7 +40,7 @@ var DashboardComponent = (function () {
             // Full path. Angular doesn't support module-relative paths.
             styleUrls: ['app/dashboard.component.css']
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, order_service_1.OrderService])
+        __metadata('design:paramtypes', [router_deprecated_1.Router, order_service_1.OrderService, login_service_1.LoginService])
     ], DashboardComponent);
     return DashboardComponent;
 }());
